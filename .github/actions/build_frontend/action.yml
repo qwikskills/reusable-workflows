@@ -1,0 +1,61 @@
+name: "Build Application 🚧"
+description: "Building Frontend Applications"
+
+inputs:
+  APP_NAME:
+    description: "App Name"
+    required: true
+  APP_DIR:
+    description: "App Directory"
+    required: true
+  IMAGE_NAME:
+    description: "Image Name"
+    required: true
+  IMAGE_TAG:
+    description: "Image Tag"
+    required: true
+  LOGIN_SERVER:
+    description: "Docker Login Server"
+    required: true
+  DOCKER_LOGIN_USERNAME:
+    description: "Docker Login Username"
+    required: true
+  DOCKER_LOGIN_PASS:
+    description: "Docker Login Password"
+    required: true
+  NODE_VERSION:
+    description: "Node Version"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node ${{ inputs.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+
+    - name: Building Application for ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        git branch
+        ls -al
+        npm install
+        CI=false npm run build
+      shell: bash
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.LOGIN_SERVER }}
+        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+
+    - name: Building Docker Image for ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+      shell: bash

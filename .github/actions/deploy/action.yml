@@ -1,0 +1,62 @@
+name: "Application Deployment"
+description: "Deploying Application to Azure App Service"
+
+inputs:
+  APP_NAME:
+    description: "App Name"
+    required: true
+  APP_DIR:
+    description: "App Directory"
+    required: true
+  IMAGE_NAME:
+    description: "Image Name"
+    required: true
+  IMAGE_TAG:
+    description: "Image Tag"
+    required: true
+  ENV_FILE_NAME:
+    description: "Environment File Name"
+    required: false
+  LOGIN_SERVER:
+    description: "Docker Login Server"
+    required: true
+  DOCKER_LOGIN_USERNAME:
+    description: "Docker Login Username"
+    required: true
+  DOCKER_LOGIN_PASS:
+    description: "Docker Login Password"
+    required: true
+  NODE_VERSION:
+    description: "Node Version"
+    required: true
+  AZURE_CREDENTIALS:
+    description: "Azure Creds"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Deploying Application for ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        git branch
+      shell: bash
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ inputs.AZURE_CREDENTIALS }}
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.LOGIN_SERVER }}
+        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+
+    - name: Deploying Docker Image for ${{ inputs.APP_DIR }}
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ inputs.APP_NAME }}
+        images: ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
