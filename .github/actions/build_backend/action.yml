@@ -16,7 +16,7 @@ inputs:
     required: true
   env:
     description: "Environment File Name"
-    required: true
+    required: false
   LOGIN_SERVER:
     description: "Docker Login Server"
     required: true
