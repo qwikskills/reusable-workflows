@@ -44,3 +44,18 @@ runs:
         npm install
         CI=false npm run build
       shell: bash
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.LOGIN_SERVER }}
+        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+
+    - name: Building Docker Image for ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+      shell: bash

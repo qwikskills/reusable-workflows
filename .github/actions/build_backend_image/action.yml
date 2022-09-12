@@ -1,5 +1,5 @@
 name: "Build Application 🚧"
-description: "Building Frontend Applications"
+description: "Building Backend Applications"
 
 inputs:
   APP_NAME:
@@ -14,6 +14,9 @@ inputs:
   IMAGE_TAG:
     description: "Image Tag"
     required: true
+  env:
+    description: "Environment File Name"
+    required: false
   LOGIN_SERVER:
     description: "Docker Login Server"
     required: true
@@ -26,6 +29,9 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
+  DEV_ENV:
+    description: "Development Environment"
+    required: true
 
 runs:
   using: composite
@@ -35,12 +41,27 @@ runs:
       with:
         node-version: ${{ inputs.NODE_VERSION }}
 
-    - name: Building Application for ${{ inputs.APP_DIR }}
+
+    - name: Building Application for ${{ inputs.APP_DIR }} & ${{ inputs.env }}
       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
-        git branch
         ls -al
-        npm install
-        CI=false npm run build
+        touch .env
+        mkdir logs
+      shell: bash
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.LOGIN_SERVER }}
+        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+
+    - name: Building Docker Image for ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
       shell: bash

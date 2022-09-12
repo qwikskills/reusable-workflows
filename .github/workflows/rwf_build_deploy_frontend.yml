@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: qwikskills/reusable-workflows/.github/actions/build_frontend@main
+    - uses: qwikskills/reusable-workflows/.github/actions/build_frontend_image@main
       with:
         NODE_VERSION: ${{ inputs.NODE_VERSION }}
         LOGIN_SERVER: ${{ inputs.LOGIN_SERVER }}
