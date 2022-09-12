@@ -47,6 +47,7 @@ runs:
       run: |
         pwd
         ls -al
+        touch .env
       shell: bash
 
     - name: Docker Login
