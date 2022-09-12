@@ -21,7 +21,7 @@ on:
         type: string
       env:
         description: "Environment File Name"
-        required: true
+        required: false
         type: string
       LOGIN_SERVER:
         description: "Docker Login Server"
