@@ -39,7 +39,7 @@ on:
         description: "Backend API URL"
         required: false
         type: string
-      REACT_APP_ENTERPRISE_URL:
+      REACT_APP_ENTERPRISE_API_URL:
         description: "Backend Enterprise API URL"
         required: false
         type: string
