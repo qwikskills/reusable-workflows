@@ -26,6 +26,24 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
+  REACT_APP_API_URL:
+    description: "Node Version"
+    required: true
+  REACT_APP_RAZORPAY_KEY_ID:
+    description: "Node Version"
+    required: true
+  REACT_APP_ENTERPRISE_API_URL:
+    description: "Node Version"
+    required: true
+  REACT_APP_FILE_URL:
+    description: "Node Version"
+    required: true
+  REACT_APP_IMAGE_URL:
+    description: "Node Version"
+    required: true
+  REACT_APP_MAIL_URL:
+    description: "Node Version"
+    required: true
 
 runs:
   using: composite
@@ -42,6 +60,13 @@ runs:
         git branch
         ls -al
         npm install
+        touch .env
+        echo REACT_APP_API_URL=${{ inputs.REACT_APP_API_URL }} >> .env
+        echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.REACT_APP_RAZORPAY_KEY_ID }} >> .env
+        echo REACT_APP_ENTERPRISE_API_URL=${{ inputs.REACT_APP_ENTERPRISE_API_URL }} >> .env
+        echo REACT_APP_FILE_URL=${{ inputs.REACT_APP_FILE_URL }} >> .env
+        echo REACT_APP_IMAGE_URL=${{ inputs.REACT_APP_IMAGE_URL }} >> .env
+        echo REACT_APP_MAIL_URL=${{ inputs.REACT_APP_MAIL_URL }} >> .env
         CI=false npm run build
       shell: bash
 
