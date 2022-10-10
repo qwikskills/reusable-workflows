@@ -35,6 +35,10 @@ on:
         description: "Node Version"
         required: true
         type: string
+      JSON_FILE:
+        description: "App Service Settings"
+        required: true
+        type: string
     secrets:
       AZURE_CREDENTIALS:
         description: "Azure Creds"
@@ -81,4 +85,5 @@ jobs:
         APP_DIR: ${{ inputs.APP_DIR }}
         IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
         IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
+        JSON_FILE: ${{ inputs.JSON_FILE }}
         AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
