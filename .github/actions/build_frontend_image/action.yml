@@ -26,23 +26,23 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
-  REACT_APP_API_URL:
-    description: "Node Version"
+  API_URL:
+    description: "Backend API URL"
     required: true
   REACT_APP_RAZORPAY_KEY_ID:
-    description: "Node Version"
+    description: "Razorpay Key ID"
     required: true
-  REACT_APP_ENTERPRISE_API_URL:
-    description: "Node Version"
+  ENTERPRISE_API_URL:
+    description: "Enterprise API URL"
     required: true
-  REACT_APP_FILE_URL:
-    description: "Node Version"
+  IMAGE_FILE_URL:
+    description: "Image and File URL"
     required: true
-  REACT_APP_IMAGE_URL:
-    description: "Node Version"
-    required: true
-  REACT_APP_MAIL_URL:
-    description: "Node Version"
+#   REACT_APP_IMAGE_URL:
+#     description: "Node Version"
+#     required: true
+  MAIL_URL:
+    description: "Mail server URL"
     required: true
 
 runs:
@@ -61,11 +61,11 @@ runs:
         npm install
         touch .env
         ls -al
-        echo REACT_APP_API_URL=${{ inputs.REACT_APP_API_URL }} >> .env
-        echo REACT_APP_ENTERPRISE_API_URL=${{ inputs.REACT_APP_ENTERPRISE_API_URL }} >> .env
-        echo REACT_APP_FILE_URL=${{ inputs.REACT_APP_FILE_URL }} >> .env
-        echo REACT_APP_IMAGE_URL=${{ inputs.REACT_APP_IMAGE_URL }} >> .env
-        echo REACT_APP_MAIL_URL=${{ inputs.REACT_APP_MAIL_URL }} >> .env
+        echo REACT_APP_API_URL=${{ inputs.API_URL }} >> .env
+        echo REACT_APP_ENTERPRISE_API_URL=${{ inputs.ENTERPRISE_API_URL }} >> .env
+        echo REACT_APP_FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
+        echo REACT_APP_IMAGE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
+        echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
         echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.REACT_APP_RAZORPAY_KEY_ID }} >> .env
         cat .env
         CI=false npm run build
