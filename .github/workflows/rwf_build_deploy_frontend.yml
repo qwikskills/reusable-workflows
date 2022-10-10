@@ -35,23 +35,23 @@ on:
         description: "Node Version"
         required: true
         type: string
-      REACT_APP_API_URL:
+      API_URL:
         description: "Backend API URL"
         required: false
         type: string
-      REACT_APP_ENTERPRISE_API_URL:
+      ENTERPRISE_API_URL:
         description: "Backend Enterprise API URL"
         required: false
         type: string
-      REACT_APP_FILE_URL:
+      IMAGE_FILE_URL:
         description: "Backend API URL"
         required: false
         type: string
-      REACT_APP_IMAGE_URL:
-        description: "Backend API URL"
-        required: false
-        type: string
-      REACT_APP_MAIL_URL:
+#       REACT_APP_IMAGE_URL:
+#         description: "Backend API URL"
+#         required: false
+#         type: string
+      MAIL_URL:
         description: "Backend API URL"
         required: false
         type: string
@@ -88,11 +88,11 @@ jobs:
         APP_DIR: ${{ inputs.APP_DIR }}
         IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
         IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
-        REACT_APP_API_URL: ${{ inputs.REACT_APP_API_URL }}
-        REACT_APP_ENTERPRISE_API_URL: ${{ inputs.REACT_APP_ENTERPRISE_API_URL }}
-        REACT_APP_FILE_URL: ${{ inputs.REACT_FILE_URL }}
-        REACT_APP_IMAGE_URL: ${{ inputs.REACT_IMAGE_URL }}
-        REACT_APP_MAIL_URL: ${{ inputs.REACT_MAIL_URL }}
+        API_URL: ${{ inputs.API_URL }}
+        ENTERPRISE_API_URL: ${{ inputs.ENTERPRISE_API_URL }}
+        IMAGE_FILE_URL: ${{ inputs.IMAGE_FILE_URL }}
+#         REACT_APP_IMAGE_URL: ${{ inputs.REACT_IMAGE_URL }}
+        MAIL_URL: ${{ inputs.MAIL_URL }}
         REACT_APP_RAZORPAY_KEY_ID: ${{ secrets.REACT_APP_RAZORPAY_KEY_ID }}
 
   app-deploy-frontend:
