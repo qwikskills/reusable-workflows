@@ -35,8 +35,28 @@ on:
         description: "Node Version"
         required: true
         type: string
-      JSON_FILE:
-        description: "App Service Settings"
+      REACT_APP_API_URL:
+        description: "Backend API URL"
+        required: true
+        type: string
+      REACT_APP_RAZORPAY_KEY_ID:
+        description: "Razorpay Key ID"
+        required: true
+        type: string
+      REACT_APP_ENTERPRISE_URL:
+        description: "Backend Enterprise API URL"
+        required: true
+        type: string
+      REACT_APP_FILE_URL:
+        description: "Backend API URL"
+        required: true
+        type: string
+      REACT_APP_IMAGE_URL:
+        description: "Backend API URL"
+        required: true
+        type: string
+      REACT_APP_MAIL_URL:
+        description: "Backend API URL"
         required: true
         type: string
     secrets:
@@ -85,5 +105,10 @@ jobs:
         APP_DIR: ${{ inputs.APP_DIR }}
         IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
         IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
-        JSON_FILE: ${{ inputs.JSON_FILE }}
+        REACT_APP_API_URL: ${{ inputs.REACT_APP_API_URL }}
+        REACT_APP_RAZORPAY_KEY_ID: ${{ inputs.REACT_APP_RAZORPAY_KEY_ID }}
+        REACT_APP_ENTERPRISE_API_URL: ${{ inputs.REACT_APP_ENTERPRISE_API_URL }}
+        REACT_APP_FILE_URL: ${{ inputs.REACT_FILE_URL }}
+        REACT_APP_IMAGE_URL: ${{ inputs.REACT_IMAGE_URL }}
+        REACT_APP_MAIL_URL: ${{ inputs.REACT_MAIL_URL }}
         AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
