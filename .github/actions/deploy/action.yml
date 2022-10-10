@@ -29,9 +29,6 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
-  JSON_FILE:
-    description: "App Service Settings"
-    required: false
   AZURE_CREDENTIALS:
     description: "Azure Creds"
     required: true
@@ -58,17 +55,17 @@ runs:
         username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
         password: ${{ inputs.DOCKER_LOGIN_PASS }}
         
-    - name: Azure - Load slot settings values
-      run: echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"
-      id: load-settings-file
-      shell: bash
+#     - name: Azure - Load slot settings values
+#       run: echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"
+#       id: load-settings-file
+#       shell: bash
 
-    - name: Azure - Update slot settings values
-      uses: azure/appservice-settings@v1
-      with:
-        app-name: ${{ inputs.APP_NAME }}
-        mask-inputs: false
-        app-settings-json: "${{steps.load-settings-file.outputs.appsettings_json}}"
+#     - name: Azure - Update slot settings values
+#       uses: azure/appservice-settings@v1
+#       with:
+#         app-name: ${{ inputs.APP_NAME }}
+#         mask-inputs: false
+#         app-settings-json: "${{steps.load-settings-file.outputs.appsettings_json}}"
       
     - name: Deploying ${{ inputs.APP_DIR }} to Azure WebApp
       uses: azure/webapps-deploy@v2
