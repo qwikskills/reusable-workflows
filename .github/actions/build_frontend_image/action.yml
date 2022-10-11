@@ -38,9 +38,6 @@ inputs:
   IMAGE_FILE_URL:
     description: "Image and File URL"
     required: true
-#   REACT_APP_IMAGE_URL:
-#     description: "Node Version"
-#     required: true
   MAIL_URL:
     description: "Mail server URL"
     required: true
@@ -66,7 +63,10 @@ runs:
         echo REACT_APP_FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
         echo REACT_APP_IMAGE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
         echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
-        echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.REACT_APP_RAZORPAY_KEY_ID }} >> .env
+        cat .env
+        export RAZORPAY_KEY_ID_NON_PROD=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }}
+        export RAZORPAY_KEY_ID_PROD=${{ inputs.RAZORPAY_KEY_ID_PROD }}
+        if [ -z "$RAZORPAY_KEY_ID_NON_PROD" ]; then echo RAZORPAY_KEY_ID_PROD=${{ inputs.RAZORPAY_KEY_ID_PROD }} >> .env; else echo RAZORPAY_KEY_ID_NON_PROD=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }} >> .env; fi
         cat .env
         CI=false npm run build
       shell: bash
