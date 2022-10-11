@@ -47,17 +47,16 @@ on:
         description: "Backend API URL"
         required: false
         type: string
-#       REACT_APP_IMAGE_URL:
-#         description: "Backend API URL"
-#         required: false
-#         type: string
       MAIL_URL:
         description: "Backend API URL"
         required: false
         type: string
     secrets:
-      REACT_APP_RAZORPAY_KEY_ID:
-        description: "Razorpay Key ID"
+      RAZORPAY_KEY_ID_NON_PROD:
+        description: "Razorpay Key ID Non Prod"
+        required: false
+      RAZORPAY_KEY_ID_PROD:
+        description: "Razorpay Key ID Prod"
         required: false
       AZURE_CREDENTIALS:
         description: "Azure Creds"
@@ -91,9 +90,9 @@ jobs:
         API_URL: ${{ inputs.API_URL }}
         ENTERPRISE_API_URL: ${{ inputs.ENTERPRISE_API_URL }}
         IMAGE_FILE_URL: ${{ inputs.IMAGE_FILE_URL }}
-#         REACT_APP_IMAGE_URL: ${{ inputs.REACT_IMAGE_URL }}
         MAIL_URL: ${{ inputs.MAIL_URL }}
-        REACT_APP_RAZORPAY_KEY_ID: ${{ secrets.REACT_APP_RAZORPAY_KEY_ID }}
+        RAZORPAY_KEY_ID_NON_PROD: ${{ secrets.RAZORPAY_KEY_ID_NON_PROD }}
+        RAZORPAY_KEY_ID_PROD: ${{ secrets.RAZORPAY_KEY_ID_PROD }}
 
   app-deploy-frontend:
     needs: [setup-version, "app-build-frontend"]
