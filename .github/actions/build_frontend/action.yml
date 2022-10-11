@@ -40,6 +40,7 @@ runs:
       run: |
         pwd
         git branch
+        touch .env
         ls -al
         npm install
         CI=false npm run build
