@@ -44,10 +44,10 @@ inputs:
   MAIL_URL:
     description: "Mail server URL"
     required: true
-  ZIPCODE_API_KEY:
+  ZIP_CODE_API_KEY:
     description: "Zipcode API Key"
     required: true
-  ZIPCODE_API_ENDPOINT:
+  ZIP_CODE_API_ENDPOINT:
     description: "Zipcode API EndPoint"
     required: true
 
@@ -72,8 +72,8 @@ runs:
         echo REACT_APP_FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
         echo REACT_APP_IMAGE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
         echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
-        echo ZIPCODE_API_ENDPOINT=${{ inputs.ZIPCODE_API_ENDPOINT }} >> .env
-        echo ZIPCODE_API_KEY=${{ inputs.ZIPCODE_API_ENDPOINT }} >> .env
+        echo ZIP_CODE_API_ENDPOINT=${{ inputs.ZIP_CODE_API_ENDPOINT }} >> .env
+        echo ZIP_CODE_API_KEY=${{ inputs.ZIP_CODE_API_ENDPOINT }} >> .env
         export RAZORPAY_KEY_ID_NON_PROD=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }}
         export RAZORPAY_KEY_ID_PROD=${{ inputs.RAZORPAY_KEY_ID_PROD }}
         if [ -z "$RAZORPAY_KEY_ID_NON_PROD" ]; then echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_PROD }} >> .env; else echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }} >> .env; fi
