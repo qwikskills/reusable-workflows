@@ -62,7 +62,7 @@ on:
       RAZORPAY_KEY_ID_PROD:
         description: "Razorpay Key ID Prod"
         required: false
-      ZIPCODE_API_KEY:
+      ZIP_CODE_API_KEY:
         description: "Zipcode Key ID"
         required: false
       AZURE_CREDENTIALS:
