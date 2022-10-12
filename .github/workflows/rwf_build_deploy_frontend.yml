@@ -51,19 +51,12 @@ on:
         description: "Backend API URL"
         required: false
         type: string
-      ZIP_CODE_API_ENDPOINT:
-        description: "Zipcode API URL"
-        required: false
-        type: string
     secrets:
       RAZORPAY_KEY_ID_NON_PROD:
         description: "Razorpay Key ID Non Prod"
         required: false
       RAZORPAY_KEY_ID_PROD:
         description: "Razorpay Key ID Prod"
-        required: false
-      ZIP_CODE_API_KEY:
-        description: "Zipcode Key ID"
         required: false
       AZURE_CREDENTIALS:
         description: "Azure Creds"
@@ -98,10 +91,8 @@ jobs:
         ENTERPRISE_API_URL: ${{ inputs.ENTERPRISE_API_URL }}
         IMAGE_FILE_URL: ${{ inputs.IMAGE_FILE_URL }}
         MAIL_URL: ${{ inputs.MAIL_URL }}
-        ZIP_CODE_API_ENDPOINT: ${{ inputs.ZIP_CODE_API_ENDPOINT }}
         RAZORPAY_KEY_ID_NON_PROD: ${{ secrets.RAZORPAY_KEY_ID_NON_PROD }}
         RAZORPAY_KEY_ID_PROD: ${{ secrets.RAZORPAY_KEY_ID_PROD }}
-        ZIP_CODE_API_KEY: ${{ secrets.ZIP_CODE_API_KEY }}
 
   app-deploy-frontend:
     needs: [setup-version, "app-build-frontend"]
