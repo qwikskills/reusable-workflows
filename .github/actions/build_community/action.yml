@@ -20,7 +20,7 @@ runs:
 
     - name: Install Dependencies for ${{ inputs.app-directiory }}
       working-directory: "${{ inputs.app-directiory }}"
-      run: npm ci
+      run: npm i
       shell: bash
 
     - name: Build
