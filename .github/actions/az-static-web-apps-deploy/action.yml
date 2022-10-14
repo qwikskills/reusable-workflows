@@ -1,0 +1,27 @@
+name: "Deploy Static Web App"
+description: "Deployment of Frontend Applications"
+
+inputs:
+  stapp-api-key:
+    description: "App Name"
+    required: true
+
+  github-token:
+    description: "Node Version"
+    required: true
+
+  path-to-deploy:
+    description: "Node Version"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Deploy
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
+        repo-token: ${{ inputs.github-token }}
+        action: "upload"
+        app_location: ${{ inputs.path-to-deploy }}
+        skip_app_build: true

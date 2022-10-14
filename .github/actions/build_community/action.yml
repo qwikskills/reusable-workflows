@@ -1,0 +1,32 @@
+name: "Build Application 🚧"
+description: "Building Frontend Applications"
+
+inputs:
+  app-directory:
+    description: "App Name"
+    required: true
+
+  node-version:
+    description: "Node Version"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node ${{ inputs.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install Dependencies for ${{ inputs.app-directiory }}
+      working-directory: "${{ inputs.app-directiory }}"
+      run: npm ci
+      shell: bash
+
+    - name: Build
+      working-directory: "${{ inputs.app-directiory }}"
+      run: 
+        npm build
+        pwd
+        ls -la
+      shell: bash
