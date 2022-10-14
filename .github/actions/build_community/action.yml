@@ -20,14 +20,14 @@ runs:
 
     - name: Install Dependencies for ${{ inputs.app-directiory }}
       working-directory: "${{ inputs.app-directiory }}"
-      run: npm i
+      run: yarn install
       shell: bash
 
     - name: Build
       working-directory: "${{ inputs.app-directiory }}"
       run:
         |
-          npm run build
+          yarn run build
           pwd
           ls -la
       shell: bash
