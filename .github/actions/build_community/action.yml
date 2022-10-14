@@ -25,8 +25,9 @@ runs:
 
     - name: Build
       working-directory: "${{ inputs.app-directiory }}"
-      run: 
-        npm build
-        pwd
-        ls -la
+      run:
+        |
+          npm build
+          pwd
+          ls -la
       shell: bash
