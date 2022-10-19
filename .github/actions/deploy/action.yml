@@ -62,7 +62,7 @@ runs:
       run: 
         |
         export JSON_FILE=${{ inputs.JSON_FILE }}
-        if [ -z "$JSON_FILE" ]; then echo "Deploying For Frontend No JSON Required"; else echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"
+        if [ -z "$JSON_FILE" ]; then echo "Deploying For Frontend No JSON Required"; else echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"; fi
       id: load-settings-file
       shell: bash
 
