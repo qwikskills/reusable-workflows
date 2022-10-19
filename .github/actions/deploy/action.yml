@@ -29,6 +29,9 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
+  SLOT_NAME:
+    description: "App Service Slot Name"
+    required: true
   AZURE_CREDENTIALS:
     description: "Azure Creds"
     required: true
@@ -71,4 +74,5 @@ runs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ inputs.APP_NAME }}
+        slot-name: ${{ inputs.SLOT_NAME }}
         images: ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
