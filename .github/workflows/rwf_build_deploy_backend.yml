@@ -59,6 +59,7 @@ jobs:
         node-version: ${{ inputs.NODE_VERSION }}
 
   app-build-backend:
+    name: "Build Backend for ${{ inputs.SLOT_NAME }} Env🚧"
     needs: [setup-version]
     runs-on: ubuntu-latest
     steps:
@@ -77,6 +78,7 @@ jobs:
         IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
 
   app-deploy-backend:
+    name: "Deploy Backend for ${{ inputs.SLOT_NAME }} Env🚀 "
     needs: [setup-version, "app-build-backend"]
     runs-on: ubuntu-latest
     steps:
