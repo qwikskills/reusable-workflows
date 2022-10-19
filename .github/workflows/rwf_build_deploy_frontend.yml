@@ -77,11 +77,14 @@ jobs:
         node-version: ${{ inputs.NODE_VERSION }}
 
   app-build-frontend:
+    name: "Build Frontend🚧"
     needs: [setup-version]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: qwikskills/reusable-workflows/.github/actions/build_frontend_image@main
+    
+    - name: Running Reusable Build Action for Frontend 
+      uses: qwikskills/reusable-workflows/.github/actions/build_frontend_image@main
       with:
         NODE_VERSION: ${{ inputs.NODE_VERSION }}
         LOGIN_SERVER: ${{ inputs.LOGIN_SERVER }}
@@ -99,11 +102,14 @@ jobs:
         RAZORPAY_KEY_ID_PROD: ${{ secrets.RAZORPAY_KEY_ID_PROD }}
 
   app-deploy-frontend:
+    name: "Deploy Frontend 🚀"
     needs: [setup-version, "app-build-frontend"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: qwikskills/reusable-workflows/.github/actions/deploy@main
+    
+    - name: Running Reusable Deploy Action
+      uses: qwikskills/reusable-workflows/.github/actions/deploy@main
       with:
         NODE_VERSION: ${{ inputs.NODE_VERSION }}
         LOGIN_SERVER: ${{ inputs.LOGIN_SERVER }}
