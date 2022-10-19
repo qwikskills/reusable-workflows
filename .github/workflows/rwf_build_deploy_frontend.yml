@@ -51,6 +51,10 @@ on:
         description: "Backend API URL"
         required: false
         type: string
+      SLOT_NAME:
+        description: "App Service Slot Name"
+        required: false
+        type: string
     secrets:
       RAZORPAY_KEY_ID_NON_PROD:
         description: "Razorpay Key ID Non Prod"
@@ -109,4 +113,5 @@ jobs:
         APP_DIR: ${{ inputs.APP_DIR }}
         IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
         IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
+        SLOT_NAME: ${{ inputs.SLOT_NAME }}
         AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
