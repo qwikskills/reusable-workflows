@@ -62,7 +62,8 @@ runs:
       run: 
         |
         export JSON_FILE=${{ inputs.JSON_FILE }}
-        if [ -z "$JSON_FILE" ]; then echo "::set-output name=appsettings_json::"not_valid"; else echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"; fi
+        export NO_JSON="test"
+        if [ -z "$JSON_FILE" ]; then echo "::set-output name=appsettings_json::$NO_JSON; else echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"; fi
       id: load-settings-file
       shell: bash
 
