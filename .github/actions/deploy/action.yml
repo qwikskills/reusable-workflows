@@ -61,8 +61,8 @@ runs:
     - name: Azure - Load slot settings values
       run: 
         |
-        export JSON_FILE=(${{ inputs.JSON_FILE }} || test)
-        if [ "$JSON_FILE" == test ]; then echo "::set-output name=appsettings_json::$JSON_FILE"; else echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"; fi
+        export JSON_FILE=${{ inputs.JSON_FILE }}
+        if [ -z "$JSON_FILE" ]; then echo "::set-output name=appsettings_json::"not_valid"; else echo "::set-output name=appsettings_json::$(tr -d '\n' < ${{ inputs.JSON_FILE }})"; fi
       id: load-settings-file
       shell: bash
 
