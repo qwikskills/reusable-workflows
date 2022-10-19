@@ -68,7 +68,7 @@ runs:
       shell: bash
 
     - name: Azure - Update slot settings values
-      if: contains(steps.load-settings-file.outputs.appsettings_json , 'environments/*')
+      if: contains(steps.load-settings-file.outputs.appsettings_json , 'environments/*') == true
       uses: azure/appservice-settings@v1
       with:
         app-name: ${{ inputs.APP_NAME }}
