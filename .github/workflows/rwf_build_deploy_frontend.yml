@@ -65,7 +65,7 @@ on:
       AZURE_CREDENTIALS:
         description: "Azure Creds"
         required: true
-      GITHUB_TOKEN:
+      NODE_AUTH_TOKEN:
         description: "Github Token"
         required: false
         
@@ -106,7 +106,7 @@ jobs:
         MAIL_URL: ${{ inputs.MAIL_URL }}
         RAZORPAY_KEY_ID_NON_PROD: ${{ secrets.RAZORPAY_KEY_ID_NON_PROD }}
         RAZORPAY_KEY_ID_PROD: ${{ secrets.RAZORPAY_KEY_ID_PROD }}
-        GITBUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
   app-deploy-frontend:
     name: "Deploy Frontend 🚀"
