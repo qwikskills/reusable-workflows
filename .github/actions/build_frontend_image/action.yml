@@ -58,6 +58,7 @@ runs:
       run: |
         pwd
         git branch
+        npm install @qwikskills/qs-doc-editor@1.0.0
         npm install
         touch .env
         ls -al
