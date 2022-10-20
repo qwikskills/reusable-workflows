@@ -44,6 +44,9 @@ inputs:
   MAIL_URL:
     description: "Mail server URL"
     required: true
+  NODE_AUTH_TOKEN:
+    description: "Node Token"
+    required: true
 
 runs:
   using: composite
@@ -72,6 +75,8 @@ runs:
         if [ -z "$RAZORPAY_KEY_ID_NON_PROD" ]; then echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_PROD }} >> .env; else echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }} >> .env; fi
         cat .env
         CI=false npm run build
+      with:
+        NODE_AUTH_TOKEN: ${{ inputs.NODE_AUTH_TOKEN }}
       shell: bash
 
     - name: Docker Login
