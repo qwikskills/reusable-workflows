@@ -54,7 +54,8 @@ runs:
         node-version: ${{ inputs.NODE_VERSION }}
         
     - name: Authenticate with private NPM package
-      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+      shell: bash
 
     - name: Building Application for ${{ inputs.APP_DIR }}
       working-directory: ${{ inputs.APP_DIR }}
