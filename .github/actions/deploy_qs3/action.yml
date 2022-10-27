@@ -1,0 +1,21 @@
+name: "Deploy Qwikskills Application 🚀"
+description: "Deployment of SWA Application"
+
+inputs:
+  app-name:
+    description: "App Name"
+    required: true
+
+  images:
+    description: "Docker Image"
+    required: true
+
+
+runs:
+  using: composite
+  steps:
+    - name: Deployment using Azure Action 🚀
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ inputs.app-name }}
+        images: ${{ inputs.images }}
