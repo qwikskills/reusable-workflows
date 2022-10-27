@@ -9,11 +9,21 @@ inputs:
   images:
     description: "Docker Image"
     required: true
+    
+  AZURE_CREDENTIALS:
+    description: "Azure Creds"
+    required: true
 
 
 runs:
   using: composite
   steps:
+  
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ inputs.AZURE_CREDENTIALS }}
+        
     - name: Deployment using Azure Action 🚀
       uses: azure/webapps-deploy@v2
       with:
