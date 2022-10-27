@@ -10,6 +10,26 @@ inputs:
     description: "Node Version"
     required: true
 
+  IMAGE_NAME:
+    description: "Image Name"
+    required: true
+    
+  IMAGE_TAG:
+    description: "Image Tag"
+    required: true
+    
+  LOGIN_SERVER:
+    description: "Docker Login Server"
+    required: true
+    
+  DOCKER_LOGIN_USERNAME:
+    description: "Docker Login Username"
+    required: true
+    
+  DOCKER_LOGIN_PASS:
+    description: "Docker Login Password"
+    required: true
+
 runs:
   using: composite
   steps:
@@ -18,16 +38,40 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
 
-    - name: Install Dependencies for ${{ inputs.app-directiory }}
-      working-directory: "${{ inputs.app-directiory }}"
+    - name: Install Dependencies for ${{ inputs.app-directory }}
+      working-directory: "${{ inputs.app-directory }}"
       run: yarn install --frozen-lockfile
       shell: bash
 
-    - name: Build
-      working-directory: "${{ inputs.app-directiory }}"
+    - name: Build Application using Yarn
+      working-directory: "${{ inputs.app-directory }}"
       run:
         |
           yarn run build
           pwd
           ls -la
+      shell: bash
+      
+    - name: Build Docker Image
+      working-directory: "${{ inputs.app-directory }}"
+      run:
+        |
+          yarn run build
+          pwd
+          ls -la
+      shell: bash
+      
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.LOGIN_SERVER }}
+        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+
+    - name: Building Docker Image for ${{ inputs.app-directory }}
+      working-directory: ${{ inputs.app-directory }}
+      run: |
+        pwd
+        docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
       shell: bash
