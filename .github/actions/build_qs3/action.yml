@@ -72,6 +72,7 @@ runs:
       working-directory: ${{ inputs.app-directory }}
       run: |
         pwd
+        ls -al
         docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
         docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
       shell: bash
