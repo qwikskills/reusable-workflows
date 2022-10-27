@@ -20,7 +20,7 @@ runs:
 
     - name: Install Dependencies for ${{ inputs.app-directiory }}
       working-directory: "${{ inputs.app-directiory }}"
-      run: yarn install
+      run: yarn install --frozen-lockfile
       shell: bash
 
     - name: Build
