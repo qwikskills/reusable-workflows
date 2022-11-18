@@ -51,6 +51,10 @@ on:
         description: "Backend API URL"
         required: false
         type: string
+      CUSTOM_VERFICATION_URL:
+        description: "CUSTOM_VERFICATION_URL"
+        required: false
+        type: string
       SLOT_NAME:
         description: "App Service Slot Name"
         required: false
@@ -104,6 +108,7 @@ jobs:
         ENTERPRISE_API_URL: ${{ inputs.ENTERPRISE_API_URL }}
         IMAGE_FILE_URL: ${{ inputs.IMAGE_FILE_URL }}
         MAIL_URL: ${{ inputs.MAIL_URL }}
+        CUSTOM_VERFICATION_URL: ${{ inputs.CUSTOM_VERFICATION_URL }}
         RAZORPAY_KEY_ID_NON_PROD: ${{ secrets.RAZORPAY_KEY_ID_NON_PROD }}
         RAZORPAY_KEY_ID_PROD: ${{ secrets.RAZORPAY_KEY_ID_PROD }}
         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
