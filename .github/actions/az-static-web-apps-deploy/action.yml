@@ -30,3 +30,22 @@ runs:
         app_location: ${{ inputs.path-to-deploy }}
         skip_app_build: true
         deployment_environment: ${{ inputs.env-to-deploy }}
+        
+    - name: Deploy to Prod
+      run: 
+        |
+        export PROD_FLAG=${{ inputs.env-to-deploy }}
+        export NO_FLAG="test"
+      id: prodflag
+      
+        
+    - name: Deploy to Prod
+      if: contains(steps.prodflag.outputs.PROD_FLAG , 'prod') == true
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
+        repo-token: ${{ inputs.github-token }}
+        action: "close"
+        app_location: ${{ inputs.path-to-deploy }}
+        skip_app_build: true
+        deployment_environment: ${{ inputs.env-to-deploy }}
