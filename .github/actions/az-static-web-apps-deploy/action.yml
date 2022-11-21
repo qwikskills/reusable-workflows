@@ -21,16 +21,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Deploy
-      uses: Azure/static-web-apps-deploy@v1
-      with:
-        azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
-        repo-token: ${{ inputs.github-token }}
-        action: "upload"
-        app_location: ${{ inputs.path-to-deploy }}
-        skip_app_build: true
-        deployment_environment: ${{ inputs.env-to-deploy }}
-        
     - name: Deploy to Prod Validation
       run: 
         |
@@ -40,6 +30,16 @@ runs:
       id: prodflag
       shell: bash
       
+    - name: Deploy
+      if: contains(steps.prodflag.outputs.flag , 'test') == true
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
+        repo-token: ${{ inputs.github-token }}
+        action: "upload"
+        app_location: ${{ inputs.path-to-deploy }}
+        skip_app_build: true
+        deployment_environment: ${{ inputs.env-to-deploy }}         
         
     - name: Deploy to Prod
       if: contains(steps.prodflag.outputs.flag , 'production') == true
