@@ -26,13 +26,13 @@ runs:
         |
         export PROD_FLAG="${{ inputs.env-to-deploy }}"
         echo $PROD_FLAG
-        export NO_FLAG="no"
-        if [ "$PROD_FLAG" != "${{ inputs.env-to-deploy }}" ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::${{ inputs.env-to-deploy }}"; fi
+        export NO_FLAG="release"
+        if [ "$PROD_FLAG" != "production" ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::${{ inputs.env-to-deploy }}"; fi
       id: prodflag
       shell: bash
       
     - name: Deploy
-      if: contains(steps.prodflag.outputs.flag , 'no') == true
+      if: contains(steps.prodflag.outputs.flag , 'release') == true
       uses: Azure/static-web-apps-deploy@v1
       with:
         azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
