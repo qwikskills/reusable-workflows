@@ -52,14 +52,14 @@ runs:
           ls -la
       shell: bash
       
-    - name: Build Docker Image
-      working-directory: "${{ inputs.app-directory }}"
-      run:
-        |
-          yarn run build
-          pwd
-          ls -la
-      shell: bash
+#     - name: Build Docker Image
+#       working-directory: "${{ inputs.app-directory }}"
+#       run:
+#         |
+#           yarn run build
+#           pwd
+#           ls -la
+#       shell: bash
       
     - name: Docker Login
       uses: azure/docker-login@v1
