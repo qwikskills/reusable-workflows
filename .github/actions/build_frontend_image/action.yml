@@ -29,12 +29,12 @@ inputs:
   API_URL:
     description: "Backend API URL"
     required: true
-  RAZORPAY_KEY_ID_PROD:
-    description: "Razorpay Key ID Prod"
+  RAZORPAY_KEY_ID:
+    description: "Razorpay Key ID"
     required: true
-  RAZORPAY_KEY_ID_NON_PROD:
-    description: "Razorpay Key ID Non Prod"
-    required: true
+#   RAZORPAY_KEY_ID_NON_PROD:
+#     description: "Razorpay Key ID Non Prod"
+#     required: true
   ENTERPRISE_API_URL:
     description: "Enterprise API URL"
     required: true
@@ -63,25 +63,24 @@ runs:
       run: echo "//npm.pkg.github.com/:_authToken=${{ inputs.PAT_TOKEN }}" >> .npmrc
       shell: bash
 
-    - name: Building Application for ${{ inputs.APP_NAME }}
+    - name: Building Application for ${{ inputs.APP_DIR }}
       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
         git branch
         npm install
         touch .env
+        ls -al
         echo REACT_APP_API_URL=${{ inputs.API_URL }} >> .env
         echo REACT_APP_ENTERPRISE_API_URL=${{ inputs.ENTERPRISE_API_URL }} >> .env
         echo REACT_APP_FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
         echo REACT_APP_IMAGE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
         echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
         echo REACT_APP_CUSTOM_VERFICATION_URL=${{ inputs.CUSTOM_VERFICATION_URL }} >> .env
-        export RAZORPAY_KEY_ID_NON_PROD=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }}
-        export RAZORPAY_KEY_ID_PROD=${{ inputs.RAZORPAY_KEY_ID_PROD }}
-        if [ -z "$RAZORPAY_KEY_ID_NON_PROD" ]; then echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_PROD }} >> .env; else echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }} >> .env; fi
+        echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID }} >> .env
         cat .env
+        cat .npmrc
         CI=false npm run build
-        ls -la
       shell: bash
 
 #     - name: Docker Login
