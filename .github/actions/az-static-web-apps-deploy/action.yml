@@ -14,33 +14,9 @@ inputs:
     description: "Node Version"
     required: true
 
-#   API_URL:
-#     description: "Backend API URL"
-#     required: true
-
-#   RAZORPAY_KEY_ID_PROD:
-#     description: "Razorpay Key ID Prod"
-#     required: false
-
-#   RAZORPAY_KEY_ID_NON_PROD:
-#     description: "Razorpay Key ID Non Prod"
-#     required: false
-
-#   ENTERPRISE_API_URL:
-#     description: "Enterprise API URL"
-#     required: true
-
-#   IMAGE_FILE_URL:
-#     description: "Image and File URL"
-#     required: true
-
-#   MAIL_URL:
-#     description: "Mail server URL"
-#     required: true
-
-#   CUSTOM_VERFICATION_URL:
-#     description: "Custom Verification URL"
-#     required: true
+  env-to-deploy:
+    description: "Node Version"
+    required: true
 
 runs:
   using: composite
@@ -53,12 +29,4 @@ runs:
         action: "upload"
         app_location: ${{ inputs.path-to-deploy }}
         skip_app_build: true
-#       env:
-#         REACT_APP_API_URL: ${{ inputs.API_URL }}
-#         REACT_APP_ENTERPRISE_API_URL: ${{ inputs.ENTERPRISE_API_URL }}
-#         REACT_APP_FILE_URL: ${{ inputs.IMAGE_FILE_URL }}
-#         REACT_APP_IMAGE_URL: ${{ inputs.IMAGE_FILE_URL }}
-#         REACT_APP_MAIL_URL: ${{ inputs.MAIL_URL }}
-#         REACT_APP_CUSTOM_VERFICATION_URL: ${{ inputs.CUSTOM_VERFICATION_URL }}
-#         RAZORPAY_KEY_ID_NON_PROD: ${{ inputs.RAZORPAY_KEY_ID_NON_PROD }}
-#         RAZORPAY_KEY_ID_PROD: ${{ inputs.RAZORPAY_KEY_ID_PROD }}
+        deployment_environment: ${{ inputs.env-to-deploy }}
