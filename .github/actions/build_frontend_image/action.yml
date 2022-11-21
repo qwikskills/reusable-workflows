@@ -63,7 +63,7 @@ runs:
       run: echo "//npm.pkg.github.com/:_authToken=${{ inputs.PAT_TOKEN }}" >> .npmrc
       shell: bash
 
-    - name: Building Application for ${{ inputs.APP_DIR }}
+    - name: Building Application for ${{ inputs.APP_NAME }}
       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
