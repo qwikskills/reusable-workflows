@@ -26,27 +26,27 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
-   API_URL:
-     description: "Backend API URL"
-     required: true
-   RAZORPAY_KEY_ID_PROD:
-     description: "Razorpay Key ID Prod"
-     required: true
-   RAZORPAY_KEY_ID_NON_PROD:
-     description: "Razorpay Key ID Non Prod"
-     required: true
-   ENTERPRISE_API_URL:
-     description: "Enterprise API URL"
-     required: true
-   IMAGE_FILE_URL:
-     description: "Image and File URL"
-     required: true
-   MAIL_URL:
-     description: "Mail server URL"
-     required: true
-   CUSTOM_VERFICATION_URL:
-     description: "Custom Verification URL"
-     required: true
+  API_URL:
+    description: "Backend API URL"
+    required: true
+  RAZORPAY_KEY_ID_PROD:
+    description: "Razorpay Key ID Prod"
+    required: true
+  RAZORPAY_KEY_ID_NON_PROD:
+    description: "Razorpay Key ID Non Prod"
+    required: true
+  ENTERPRISE_API_URL:
+    description: "Enterprise API URL"
+    required: true
+  IMAGE_FILE_URL:
+    description: "Image and File URL"
+    required: true
+  MAIL_URL:
+    description: "Mail server URL"
+    required: true
+  CUSTOM_VERFICATION_URL:
+    description: "Custom Verification URL"
+    required: true
   PAT_TOKEN:
     description: "PAT Token"
     required: true
