@@ -37,6 +37,7 @@ runs:
         export PROD_FLAG=${{ inputs.env-to-deploy }}
         export NO_FLAG="test"
       id: prodflag
+      shell: bash
       
         
     - name: Deploy to Prod
