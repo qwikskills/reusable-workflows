@@ -24,9 +24,10 @@ runs:
     - name: Deploy to Prod Validation
       run: 
         |
-        export PROD_FLAG="yes"
+        export PROD_FLAG="${{ inputs.env-to-deploy }}"
+        echo $PROD_FLAG
         export NO_FLAG="no"
-        if [ "$PROD_FLAG" != "yes" ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::$PROD_FLAG"; fi
+        if [ "$PROD_FLAG" != "${{ inputs.env-to-deploy }}" ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::${{ inputs.env-to-deploy }}"; fi
       id: prodflag
       shell: bash
       
@@ -42,7 +43,7 @@ runs:
         deployment_environment: ${{ inputs.env-to-deploy }}         
         
     - name: Deploy to Prod
-      if: contains(steps.prodflag.outputs.flag , 'yes') == true
+      if: contains(steps.prodflag.outputs.flag , 'production') == true
       uses: Azure/static-web-apps-deploy@v1
       with:
         azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
