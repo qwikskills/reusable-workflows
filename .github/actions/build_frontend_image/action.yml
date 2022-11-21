@@ -69,6 +69,7 @@ runs:
         pwd
         git branch
         npm install
+        touch .env
         CI=false npm run build
         ls -la
       shell: bash
