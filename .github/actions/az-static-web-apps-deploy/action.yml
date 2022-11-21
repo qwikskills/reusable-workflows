@@ -26,7 +26,7 @@ runs:
         |
         export PROD_FLAG=${{ inputs.env-to-deploy }}
         export NO_FLAG="test"
-        if [ "$PROD_FLAG" != production ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::$(tr -d '\n' < ${{ inputs.env-to-deploy }})"; fi
+        if [ -z "$PROD_FLAG" ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::$(tr -d '\n' < ${{ inputs.env-to-deploy }})"; fi
       id: prodflag
       shell: bash
       
