@@ -26,27 +26,27 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
-#   API_URL:
-#     description: "Backend API URL"
-#     required: true
-#   RAZORPAY_KEY_ID_PROD:
-#     description: "Razorpay Key ID Prod"
-#     required: true
-#   RAZORPAY_KEY_ID_NON_PROD:
-#     description: "Razorpay Key ID Non Prod"
-#     required: true
-#   ENTERPRISE_API_URL:
-#     description: "Enterprise API URL"
-#     required: true
-#   IMAGE_FILE_URL:
-#     description: "Image and File URL"
-#     required: true
-#   MAIL_URL:
-#     description: "Mail server URL"
-#     required: true
-#   CUSTOM_VERFICATION_URL:
-#     description: "Custom Verification URL"
-#     required: true
+   API_URL:
+     description: "Backend API URL"
+     required: true
+   RAZORPAY_KEY_ID_PROD:
+     description: "Razorpay Key ID Prod"
+     required: true
+   RAZORPAY_KEY_ID_NON_PROD:
+     description: "Razorpay Key ID Non Prod"
+     required: true
+   ENTERPRISE_API_URL:
+     description: "Enterprise API URL"
+     required: true
+   IMAGE_FILE_URL:
+     description: "Image and File URL"
+     required: true
+   MAIL_URL:
+     description: "Mail server URL"
+     required: true
+   CUSTOM_VERFICATION_URL:
+     description: "Custom Verification URL"
+     required: true
   PAT_TOKEN:
     description: "PAT Token"
     required: true
@@ -70,6 +70,16 @@ runs:
         git branch
         npm install
         touch .env
+        echo REACT_APP_API_URL=${{ inputs.API_URL }} >> .env
+        echo REACT_APP_ENTERPRISE_API_URL=${{ inputs.ENTERPRISE_API_URL }} >> .env
+        echo REACT_APP_FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
+        echo REACT_APP_IMAGE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
+        echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
+        echo REACT_APP_CUSTOM_VERFICATION_URL=${{ inputs.CUSTOM_VERFICATION_URL }} >> .env
+        export RAZORPAY_KEY_ID_NON_PROD=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }}
+        export RAZORPAY_KEY_ID_PROD=${{ inputs.RAZORPAY_KEY_ID_PROD }}
+        if [ -z "$RAZORPAY_KEY_ID_NON_PROD" ]; then echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_PROD }} >> .env; else echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }} >> .env; fi
+        cat .env
         CI=false npm run build
         ls -la
       shell: bash
