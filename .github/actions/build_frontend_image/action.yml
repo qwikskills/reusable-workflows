@@ -8,45 +8,45 @@ inputs:
   APP_DIR:
     description: "App Directory"
     required: true
-  IMAGE_NAME:
-    description: "Image Name"
-    required: true
-  IMAGE_TAG:
-    description: "Image Tag"
-    required: true
-  LOGIN_SERVER:
-    description: "Docker Login Server"
-    required: true
-  DOCKER_LOGIN_USERNAME:
-    description: "Docker Login Username"
-    required: true
-  DOCKER_LOGIN_PASS:
-    description: "Docker Login Password"
-    required: true
+#   IMAGE_NAME:
+#     description: "Image Name"
+#     required: true
+#   IMAGE_TAG:
+#     description: "Image Tag"
+#     required: true
+#   LOGIN_SERVER:
+#     description: "Docker Login Server"
+#     required: true
+#   DOCKER_LOGIN_USERNAME:
+#     description: "Docker Login Username"
+#     required: true
+#   DOCKER_LOGIN_PASS:
+#     description: "Docker Login Password"
+#     required: true
   NODE_VERSION:
     description: "Node Version"
     required: true
-  API_URL:
-    description: "Backend API URL"
-    required: true
-  RAZORPAY_KEY_ID_PROD:
-    description: "Razorpay Key ID Prod"
-    required: true
-  RAZORPAY_KEY_ID_NON_PROD:
-    description: "Razorpay Key ID Non Prod"
-    required: true
-  ENTERPRISE_API_URL:
-    description: "Enterprise API URL"
-    required: true
-  IMAGE_FILE_URL:
-    description: "Image and File URL"
-    required: true
-  MAIL_URL:
-    description: "Mail server URL"
-    required: true
-  CUSTOM_VERFICATION_URL:
-    description: "Custom Verification URL"
-    required: true
+#   API_URL:
+#     description: "Backend API URL"
+#     required: true
+#   RAZORPAY_KEY_ID_PROD:
+#     description: "Razorpay Key ID Prod"
+#     required: true
+#   RAZORPAY_KEY_ID_NON_PROD:
+#     description: "Razorpay Key ID Non Prod"
+#     required: true
+#   ENTERPRISE_API_URL:
+#     description: "Enterprise API URL"
+#     required: true
+#   IMAGE_FILE_URL:
+#     description: "Image and File URL"
+#     required: true
+#   MAIL_URL:
+#     description: "Mail server URL"
+#     required: true
+#   CUSTOM_VERFICATION_URL:
+#     description: "Custom Verification URL"
+#     required: true
   PAT_TOKEN:
     description: "PAT Token"
     required: true
@@ -69,33 +69,21 @@ runs:
         pwd
         git branch
         npm install
-        touch .env
-        ls -al
-        echo REACT_APP_API_URL=${{ inputs.API_URL }} >> .env
-        echo REACT_APP_ENTERPRISE_API_URL=${{ inputs.ENTERPRISE_API_URL }} >> .env
-        echo REACT_APP_FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
-        echo REACT_APP_IMAGE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
-        echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
-        echo REACT_APP_CUSTOM_VERFICATION_URL=${{ inputs.CUSTOM_VERFICATION_URL }} >> .env
-        export RAZORPAY_KEY_ID_NON_PROD=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }}
-        export RAZORPAY_KEY_ID_PROD=${{ inputs.RAZORPAY_KEY_ID_PROD }}
-        if [ -z "$RAZORPAY_KEY_ID_NON_PROD" ]; then echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_PROD }} >> .env; else echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID_NON_PROD }} >> .env; fi
-        cat .env
-        cat .npmrc
         CI=false npm run build
+        ls -la
       shell: bash
 
-    - name: Docker Login
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ inputs.LOGIN_SERVER }}
-        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
-        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+#     - name: Docker Login
+#       uses: azure/docker-login@v1
+#       with:
+#         login-server: ${{ inputs.LOGIN_SERVER }}
+#         username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+#         password: ${{ inputs.DOCKER_LOGIN_PASS }}
 
-    - name: Building Docker Image for ${{ inputs.APP_DIR }}
-      working-directory: ${{ inputs.APP_DIR }}
-      run: |
-        pwd
-        docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
-        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
-      shell: bash
+#     - name: Building Docker Image for ${{ inputs.APP_DIR }}
+#       working-directory: ${{ inputs.APP_DIR }}
+#       run: |
+#         pwd
+#         docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+#         docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+#       shell: bash
