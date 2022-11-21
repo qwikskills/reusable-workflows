@@ -31,7 +31,7 @@ runs:
         skip_app_build: true
         deployment_environment: ${{ inputs.env-to-deploy }}
         
-    - name: Deploy to Prod
+    - name: Deploy to Prod Validation
       run: 
         |
         export PROD_FLAG=${{ inputs.env-to-deploy }}
@@ -49,4 +49,3 @@ runs:
         action: "close"
         app_location: ${{ inputs.path-to-deploy }}
         skip_app_build: true
-        deployment_environment: ${{ inputs.env-to-deploy }}
