@@ -45,6 +45,7 @@ runs:
     - name: Building Application for ${{ inputs.APP_DIR }} & ${{ inputs.env }}
 #       working-directory: ${{ inputs.APP_DIR }}
       run: |
+        cd ../
         pwd
         ls -al
         touch .env
