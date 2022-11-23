@@ -7,7 +7,7 @@ inputs:
     required: true
   APP_DIR:
     description: "App Directory"
-    required: true
+    required: false
   IMAGE_NAME:
     description: "Image Name"
     required: true
@@ -43,7 +43,7 @@ runs:
 
 
     - name: Building Application for ${{ inputs.APP_DIR }} & ${{ inputs.env }}
-      working-directory: ${{ inputs.APP_DIR }}
+#       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
         ls -al
@@ -59,7 +59,7 @@ runs:
         password: ${{ inputs.DOCKER_LOGIN_PASS }}
 
     - name: Building Docker Image for ${{ inputs.APP_DIR }}
-      working-directory: ${{ inputs.APP_DIR }}
+#       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
         docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
