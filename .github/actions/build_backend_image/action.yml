@@ -5,18 +5,18 @@ inputs:
   APP_NAME:
     description: "App Name"
     required: true
-  APP_DIR:
-    description: "App Directory"
-    required: false
+#   APP_DIR:
+#     description: "App Directory"
+#     required: false
   IMAGE_NAME:
     description: "Image Name"
     required: true
   IMAGE_TAG:
     description: "Image Tag"
     required: true
-  env:
-    description: "Environment File Name"
-    required: false
+#   env:
+#     description: "Environment File Name"
+#     required: false
   LOGIN_SERVER:
     description: "Docker Login Server"
     required: true
@@ -42,8 +42,8 @@ runs:
         node-version: ${{ inputs.NODE_VERSION }}
 
 
-    - name: Building Application for ${{ inputs.APP_DIR }}
-      working-directory: ${{ inputs.APP_DIR }}
+    - name: Building Application
+#       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
         ls -al
@@ -58,8 +58,8 @@ runs:
         username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
         password: ${{ inputs.DOCKER_LOGIN_PASS }}
 
-    - name: Building Docker Image for ${{ inputs.APP_DIR }}
-      working-directory: ${{ inputs.APP_DIR }}
+    - name: Building Docker Image
+#       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
         docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
