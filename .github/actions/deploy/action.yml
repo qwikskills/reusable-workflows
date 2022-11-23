@@ -28,7 +28,7 @@ inputs:
     required: true
   NODE_VERSION:
     description: "Node Version"
-    required: true
+    required: false
   SLOT_NAME:
     description: "App Service Slot Name"
     required: true
