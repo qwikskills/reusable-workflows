@@ -29,9 +29,9 @@ inputs:
   NODE_VERSION:
     description: "Node Version"
     required: true
-  DEV_ENV:
-    description: "Development Environment"
-    required: true
+#   DEV_ENV:
+#     description: "Development Environment"
+#     required: true
 
 runs:
   using: composite
@@ -42,10 +42,9 @@ runs:
         node-version: ${{ inputs.NODE_VERSION }}
 
 
-    - name: Building Application for ${{ inputs.APP_DIR }} & ${{ inputs.env }}
-#       working-directory: ${{ inputs.APP_DIR }}
+    - name: Building Application for ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
       run: |
-        cd ../
         pwd
         ls -al
         touch .env
@@ -60,7 +59,7 @@ runs:
         password: ${{ inputs.DOCKER_LOGIN_PASS }}
 
     - name: Building Docker Image for ${{ inputs.APP_DIR }}
-#       working-directory: ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
         docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
