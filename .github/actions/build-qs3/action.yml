@@ -30,7 +30,12 @@ runs:
           yarn run build
           pwd
           ls -lart
-          yarn run export
           cd public
           ls -lart
       shell: bash
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: .next
