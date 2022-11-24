@@ -29,5 +29,9 @@ runs:
         |
           yarn run build
           pwd
-          ls -la
+          ls -lart
+          mkdir out
+          cp -r .next/* out/
+          cd out
+          ls -lart
       shell: bash
