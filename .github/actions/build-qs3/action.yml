@@ -30,8 +30,6 @@ runs:
           yarn run build
           pwd
           ls -lart
-          mkdir out
-          cp -r .next/* out/
-          cd out
+          cd build
           ls -lart
       shell: bash
