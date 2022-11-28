@@ -9,6 +9,10 @@ inputs:
   images:
     description: "Docker Image"
     required: true
+
+  slot-name:
+    desciption: "Slot Name"
+    required: false
     
   AZURE_CREDENTIALS:
     description: "Azure Creds"
@@ -28,4 +32,5 @@ runs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ inputs.app-name }}
+        slot-name: ${{ inputs.slot-name }}
         images: ${{ inputs.images }}
