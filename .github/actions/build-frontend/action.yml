@@ -47,6 +47,9 @@ inputs:
   CUSTOM_VERFICATION_URL:
     description: "Custom Verification URL"
     required: true
+  APP_ENV:
+    description: "Application Env"
+    required: true
   PAT_TOKEN:
     description: "PAT Token"
     required: true
@@ -78,6 +81,7 @@ runs:
         echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
         echo REACT_APP_CUSTOM_VERFICATION_URL=${{ inputs.CUSTOM_VERFICATION_URL }} >> .env
         echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID }} >> .env
+        echo REACT_APP_ENV=${{ inputs.APP_ENV }} >> .env
         cat .env
         cat .npmrc
         CI=false npm run build
