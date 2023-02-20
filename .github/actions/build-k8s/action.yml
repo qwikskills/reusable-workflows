@@ -92,6 +92,8 @@ runs:
         pwd
         SP_APPID=$(echo $SP_NEW | jq -e -r 'select(.clientId != null) | .clientId')
         SP_PASSWORD=$(echo $SP_NEW | jq -e -r 'select(.clientSecret != null) | .clientSecret')
+        echo $ACR_ADDR > key.txt
+        cat key.txt
         helm registry login $ACR_ADDR --username $SP_APPID --password $SP_PASSWORD
         echo "${{ steps.chartversion.outputs.version }}"
       shell: bash
