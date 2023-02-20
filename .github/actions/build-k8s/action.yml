@@ -26,6 +26,9 @@ inputs:
   HELM_PATH:
     description: "Helm Path"
     required: true
+  ACR_ADDR:
+    description: "Helm Path"
+    required: true
 
 runs:
   using: composite
