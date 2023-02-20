@@ -92,13 +92,15 @@ runs:
         SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
         echo $SP_APPID
         echo $SP_PASSWORD
-        helm registry login ${{ inputs.ACR_ADDR }} --username $SP_APPID --password $SP_PASSWORD
+        helm registry login ${{ inputs.ACR_ADDR }} \
+          --username $SP_APPID \
+          --password $SP_PASSWORD
       shell: bash
 
     # - name: Save and Publist Chart to ACR
     #   working-directory: /_k8s/
     #   run: |
     #     ls -al
-    #     helm package . --version ${{ inputs.CHART_VERSION }} -d /_k8s/${{ inputs.HELM_PATH }}/charts
-    #     helm push ${{ inputs.HELM_PATH }}-${{ inputs.CHART_VERSION }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
+    #     helm package . --version ${{ steps.version.outputs.version }} -d /_k8s/${{ inputs.HELM_PATH }}/charts
+    #     helm push ${{ inputs.HELM_PATH }}-${{ steps.version.outputs.version }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
     #   shell: bash
