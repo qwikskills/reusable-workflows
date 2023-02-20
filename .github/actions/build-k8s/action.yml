@@ -88,8 +88,8 @@ runs:
       working-directory: _k8s/
       run: |
         pwd
-        SP_APPID=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientId != null) | .clientId')
-        SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
+        SP_APPID=5dacbb24-0cc6-4d8c-944e-5bfa8eb309f0
+        SP_PASSWORD=kcBEaozMun~m4UT47chjN4Ung6FqT-T4Ca
         echo $SP_APPID
         echo $SP_PASSWORD
         helm registry login ${{ inputs.ACR_ADDR }} \
