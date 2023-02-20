@@ -79,6 +79,7 @@ runs:
         cd _k8s/${{ inputs.HELM_PATH }}
         helm lint .
         helm template . --debug
+      shell: bash
 
     - name: Login to ACR with Helm
       working-directory: _k8s/
