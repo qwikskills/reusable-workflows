@@ -90,6 +90,8 @@ runs:
         pwd
         SP_APPID=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientId != null) | .clientId')
         SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
+        echo $SP_APPID
+        echo $SP_PASSWORD
         helm registry login ${{ inputs.ACR_ADDR }} --username $SP_APPID --password $SP_PASSWORD
       shell: bash
 
