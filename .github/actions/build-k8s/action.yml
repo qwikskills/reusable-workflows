@@ -85,12 +85,14 @@ runs:
       shell: bash
 
     - name: Login to ACR with Helm
+      env:
+        ACR_ADDR: ${{ inputs.ACR_ADDR }}
       working-directory: _k8s/
       run: |
         pwd
         SP_APPID=$(echo $SP_NEW | jq -e -r 'select(.clientId != null) | .clientId')
         SP_PASSWORD=$(echo $SP_NEW | jq -e -r 'select(.clientSecret != null) | .clientSecret')
-        helm registry login ${{ inputs.ACR_ADDR }} --username $SP_APPID --password $SP_PASSWORD
+        helm registry login $ACR_ADDR --username $SP_APPID --password $SP_PASSWORD
         echo "${{ steps.chartversion.outputs.version }}"
       shell: bash
 
