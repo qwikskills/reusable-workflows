@@ -17,12 +17,14 @@ inputs:
   AZURE_CREDENTIALS:
     description: "Azure Creds"
     required: true
+  ACR_ADDR:
+    description: "ACR Address"
+    required: true
 
 runs:
   using: composite
   steps:
-    - name: Deploying Application for ${{ inputs.APP_DIR }}
-      working-directory: ${{ inputs.APP_DIR }}
+    - name: Deploying Application for ${{ inputs.NAMESPACE }}
       run: |
         pwd
         git branch
@@ -44,21 +46,21 @@ runs:
 
     - name: Login to ACR
       run: |
-        az acr login --name ${{ inputs.ACR }}
+        az acr login --name ${{ inputs.ACR_ADDR }}
       shell: bash
 
-    # - name: Deploy via Helm Upgrade
-    #   run: |
-    #     cd ./_k8s/${{ inputs.HELM_PATH }}/charts
-    #     helm pull oci://${{ inputs.ACR_ADDR }}/helm/${{ inputs.HELM_PATH }} --version -d charts/ --untar
+    - name: Deploy via Helm Upgrade
+      run: |
+        cd _k8s/${{ inputs.HELM_PATH }}/charts
+        helm pull oci://${{ inputs.ACR_ADDR }}/helm/${{ inputs.HELM_PATH }} --version -d charts/ --untar
 
-    #     helm upgrade ${{ inputs.HELM_PATH }} charts/${{ inputs.HELM_PATH }} \
-    #     --debug \
-    #     --install \
-    #     -n ${{ inputs.NAMESPACE }} \
-    #     -f charts/${{ inputs.HELM_PATH }}/values.yaml \
-    #     --atomic \
-    #     --cleanup-on-fail \
-    #     --wait \
-    #     --set namespace=${{ inputs.NAMESPACE }}
-    #   shell: bash
+        helm upgrade ${{ inputs.HELM_PATH }} charts/${{ inputs.HELM_PATH }} \
+        --debug \
+        --install \
+        -n ${{ inputs.NAMESPACE }} \
+        -f charts/${{ inputs.HELM_PATH }}/values.yaml \
+        --atomic \
+        --cleanup-on-fail \
+        --wait \
+        --set namespace=${{ inputs.NAMESPACE }}
+      shell: bash

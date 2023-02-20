@@ -47,7 +47,7 @@ runs:
       shell: bash
 
     - name: Application Version
-      id: version
+      id: chartversion
       uses: paulhatch/semantic-version@v5.0.2
       with:
         change_path: "."
@@ -87,24 +87,20 @@ runs:
     - name: Login to ACR with Helm
       env:
         AZURE_CREDENTIALS: ${{ inputs.AZURE_CREDENTIALS }}
-        ACR_ADDR: ${{ inputs.ACR_ADDR }}
       working-directory: _k8s/
       run: |
         pwd
         SP_APPID=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientId != null) | .clientId')
         SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
-        echo $SP_APPID
-        echo $SP_PASSWORD
-        echo $ACR_ADDR
-        helm registry login $ACR_ADDR \
+        helm registry login ${{ inputs.ACR_ADDR }} \
           --username $SP_APPID \
           --password $SP_PASSWORD
       shell: bash
 
-    # - name: Save and Publist Chart to ACR
-    #   working-directory: /_k8s/${{ inputs.HELM_PATH }}
-    #   run: |
-    #     ls -al
-    #     helm package . --version ${{ steps.version.outputs.version }} -d /_k8s/${{ inputs.HELM_PATH }}/charts
-    #     helm push ${{ inputs.HELM_PATH }}-${{ steps.version.outputs.version }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
-    #   shell: bash
+    - name: Save and Publist Chart to ACR
+      working-directory: /_k8s/${{ inputs.HELM_PATH }}
+      run: |
+        ls -al
+        helm package . --version ${{ steps.chartversion.outputs.version }}
+        helm push ${{ inputs.HELM_PATH }}-${{ steps.chartversion.outputs.version }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
+      shell: bash
