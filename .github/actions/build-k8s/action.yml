@@ -97,11 +97,8 @@ runs:
       shell: bash
 
     - name: Save and Publist Chart to ACR
-      working-directory: /_k8s/
+      working-directory: _k8s/${{ inputs.HELM_PATH }}/
       run: |
-        pwd
-        ls -al
-        cd ${{ inputs.HELM_PATH }}/
         pwd
         ls -al
         helm package . --version ${{ steps.chartversion.outputs.version }}
