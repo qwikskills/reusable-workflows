@@ -87,6 +87,7 @@ runs:
     - name: Login to ACR with Helm
       env:
         AZURE_CREDENTIALS: ${{ inputs.AZURE_CREDENTIALS }}
+        ACR_ADDR: ${{ inputs.ACR_ADDR }}
       working-directory: _k8s/
       run: |
         pwd
@@ -94,7 +95,8 @@ runs:
         SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
         echo $SP_APPID
         echo $SP_PASSWORD
-        helm registry login ${{ inputs.ACR_ADDR }} \
+        echo $ACR_ADDR
+        helm registry login $ACR_ADDR \
           --username $SP_APPID \
           --password $SP_PASSWORD
       shell: bash
