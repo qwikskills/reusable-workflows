@@ -1,0 +1,98 @@
+name: "Build Application 🚧"
+description: "Building Backend Applications"
+
+inputs:
+  IMAGE_NAME:
+    description: "Image Name"
+    required: true
+  IMAGE_TAG:
+    description: "Image Tag"
+    required: true
+  LOGIN_SERVER:
+    description: "Docker Login Server"
+    required: true
+  DOCKER_LOGIN_USERNAME:
+    description: "Docker Login Username"
+    required: true
+  DOCKER_LOGIN_PASS:
+    description: "Docker Login Password"
+    required: true
+  NODE_VERSION:
+    description: "Node Version"
+    required: true
+  AZURE_CREDENTIALS:
+    description: "Azure Creds"
+    required: true
+  HELM_PATH:
+    description: "Helm Path"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node ${{ inputs.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+
+    - name: Building Application
+      run: |
+        pwd
+        ls -al
+        touch .env
+        mkdir logs
+      shell: bash
+
+    - name: Application Version
+      id: version
+      uses: paulhatch/semantic-version@v5.0.2
+      with:
+        change_path: "."
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ inputs.AZURE_CREDENTIALS }}
+
+    - name: Setup Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: "v3.9.0"
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.LOGIN_SERVER }}
+        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+
+    - name: Building Docker Image
+      run: |
+        pwd
+        docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+      shell: bash
+
+    - name: Helm Linting & Dry Run
+      run: |
+        echo "${{ steps.version.outputs }}"
+        cd _k8s/${{ inputs.HELM_PATH }}
+        helm lint .
+        helm template . --debug
+
+    - name: Login to ACR with Helm
+      working-directory: _k8s/
+      run: |
+        pwd
+        SP_APPID=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientId != null) | .clientId')
+        SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
+        helm registry login ${{ inputs.ACR_ADDR }} --username $SP_APPID --password $SP_PASSWORD
+      shell: bash
+
+    # - name: Save and Publist Chart to ACR
+    #   working-directory: /_k8s/
+    #   run: |
+    #     ls -al
+    #     helm package . --version ${{ inputs.CHART_VERSION }} -d /_k8s/${{ inputs.HELM_PATH }}/charts
+    #     helm push ${{ inputs.HELM_PATH }}-${{ inputs.CHART_VERSION }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
+    #   shell: bash

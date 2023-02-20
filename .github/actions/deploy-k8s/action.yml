@@ -1,0 +1,64 @@
+name: "Deploy to AKS 🚀"
+description: "Deploying Backend Applications"
+
+inputs:
+  RG_NAME:
+    description: "RG Name"
+    required: true
+  CLUSTER_NAME:
+    description: "Cluster Name"
+    required: true
+  HELM_PATH:
+    description: "Helm Path"
+    required: true
+  NAMESPACE:
+    description: "AKS Namespace"
+    required: true
+  AZURE_CREDENTIALS:
+    description: "Azure Creds"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Deploying Application for ${{ inputs.APP_DIR }}
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        git branch
+      shell: bash
+
+    - name: Setup Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: "v3.9.0"
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ inputs.AZURE_CREDENTIALS }}
+
+    - name: Get Creds to AKS Cluster 🔑
+      run: |
+        az aks get-credentials --resource-group ${{ inputs.RG_NAME }} --name ${{ inputs.CLUSTER_NAME }} --admin
+
+    - name: Login to ACR
+      run: |
+        az acr login --name ${{ inputs.ACR }}
+      shell: bash
+
+    # - name: Deploy via Helm Upgrade
+    #   run: |
+    #     cd ./_k8s/${{ inputs.HELM_PATH }}/charts
+    #     helm pull oci://${{ inputs.ACR_ADDR }}/helm/${{ inputs.HELM_PATH }} --version -d charts/ --untar
+
+    #     helm upgrade ${{ inputs.HELM_PATH }} charts/${{ inputs.HELM_PATH }} \
+    #     --debug \
+    #     --install \
+    #     -n ${{ inputs.NAMESPACE }} \
+    #     -f charts/${{ inputs.HELM_PATH }}/values.yaml \
+    #     --atomic \
+    #     --cleanup-on-fail \
+    #     --wait \
+    #     --set namespace=${{ inputs.NAMESPACE }}
+    #   shell: bash
