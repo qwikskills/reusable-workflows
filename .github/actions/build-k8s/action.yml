@@ -47,7 +47,7 @@ runs:
       shell: bash
 
     - name: Application Version
-      id: chartversion
+      id: version
       uses: paulhatch/semantic-version@v5.0.2
       with:
         change_path: "."
@@ -78,29 +78,31 @@ runs:
 
     - name: Helm Linting & Dry Run
       run: |
-        echo "${{ steps.chartversion.outputs.version }}"
+        echo "${{ steps.version.outputs.version }}"
         cd _k8s/${{ inputs.HELM_PATH }}
         helm lint .
         helm template . --debug
       shell: bash
 
     - name: Login to ACR with Helm
-      # env:
-      #   AZURE_CREDENTIALS: ${{ inputs.AZURE_CREDENTIALS }}
+      env:
+        AZURE_CREDENTIALS: ${{ inputs.AZURE_CREDENTIALS }}
       working-directory: _k8s/
       run: |
         pwd
-        SP_APPID=$(echo $SP_NEW | jq -e -r 'select(.clientId != null) | .clientId')
-        SP_PASSWORD=$(echo $SP_NEW | jq -e -r 'select(.clientSecret != null) | .clientSecret')
+        SP_APPID=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientId != null) | .clientId')
+        SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
+        echo $SP_APPID
+        echo $SP_PASSWORD
         helm registry login ${{ inputs.ACR_ADDR }} \
           --username $SP_APPID \
-          --password-stdin $SP_PASSWORD
+          --password $SP_PASSWORD
       shell: bash
 
-    - name: Save and Publist Chart to ACR
-      working-directory: /_k8s/${{ inputs.HELM_PATH }}/
-      run: |
-        ls -al
-        helm package . --version ${{ steps.chartversion.outputs.version }}
-        helm push ${{ inputs.HELM_PATH }}-${{ steps.chartversion.outputs.version }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
-      shell: bash
+    # - name: Save and Publist Chart to ACR
+    #   working-directory: /_k8s/${{ inputs.HELM_PATH }}
+    #   run: |
+    #     ls -al
+    #     helm package . --version ${{ steps.version.outputs.version }} -d /_k8s/${{ inputs.HELM_PATH }}/charts
+    #     helm push ${{ inputs.HELM_PATH }}-${{ steps.version.outputs.version }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
+    #   shell: bash
