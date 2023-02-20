@@ -93,7 +93,7 @@ runs:
         SP_APPID=$(echo $SP_NEW | jq -e -r 'select(.clientId != null) | .clientId')
         SP_PASSWORD=$(echo $SP_NEW | jq -e -r 'select(.clientSecret != null) | .clientSecret')
         echo "${{ steps.chartversion.outputs.version }}"
-        helm registry login qwiknonprod.azurecr.io --username 5dacbb24-0cc6-4d8c-944e-5bfa8eb309f0 --password-stdin kcBEaozMun~m4UT47chjN4Ung6FqT-T4Ca
+        helm registry login qwiknonprod.azurecr.io --username 5dacbb24-0cc6-4d8c-944e-5bfa8eb309f0 --password kcBEaozMun~m4UT47chjN4Ung6FqT-T4Ca
         echo "${{ steps.chartversion.outputs.version }}"
       shell: bash
 
