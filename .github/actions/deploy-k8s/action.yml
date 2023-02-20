@@ -20,6 +20,9 @@ inputs:
   ACR_ADDR:
     description: "ACR Address"
     required: true
+  CHART_VERSION:
+    description: "Azure Creds"
+    required: true
 
 runs:
   using: composite
@@ -52,15 +55,15 @@ runs:
     - name: Deploy via Helm Upgrade
       run: |
         cd _k8s/${{ inputs.HELM_PATH }}/charts
-        helm pull oci://${{ inputs.ACR_ADDR }}/helm/${{ inputs.HELM_PATH }} --version -d charts/ --untar
+        helm pull oci://${{ inputs.ACR_ADDR }}/helm/${{ inputs.HELM_PATH }} --version ${{ inputs.CHART_VERSION }} -d charts/ --untar
 
         helm upgrade ${{ inputs.HELM_PATH }} charts/${{ inputs.HELM_PATH }} \
-        --debug \
-        --install \
-        -n ${{ inputs.NAMESPACE }} \
-        -f charts/${{ inputs.HELM_PATH }}/values.yaml \
-        --atomic \
-        --cleanup-on-fail \
-        --wait \
-        --set namespace=${{ inputs.NAMESPACE }}
+          --debug \
+          --install \
+          -n ${{ inputs.NAMESPACE }} \
+          -f charts/${{ inputs.HELM_PATH }}/values.yaml \
+          --atomic \
+          --cleanup-on-fail \
+          --wait \
+          --set namespace=${{ inputs.NAMESPACE }}
       shell: bash

@@ -78,7 +78,7 @@ runs:
 
     - name: Helm Linting & Dry Run
       run: |
-        echo "${{ steps.version.outputs.version }}"
+        echo "${{ steps.chartversion.outputs.version }}"
         cd _k8s/${{ inputs.HELM_PATH }}
         helm lint .
         helm template . --debug
@@ -98,7 +98,7 @@ runs:
       shell: bash
 
     - name: Save and Publist Chart to ACR
-      working-directory: /_k8s/${{ inputs.HELM_PATH }}
+      working-directory: /_k8s/${{ inputs.HELM_PATH }}/
       run: |
         ls -al
         helm package . --version ${{ steps.chartversion.outputs.version }}
