@@ -75,7 +75,7 @@ runs:
 
     - name: Helm Linting & Dry Run
       run: |
-        echo "${{ steps.version.outputs }}"
+        echo "${{ steps.version.outputs.version }}"
         cd _k8s/${{ inputs.HELM_PATH }}
         helm lint .
         helm template . --debug
