@@ -94,7 +94,7 @@ runs:
         SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
         helm registry login ${{ inputs.ACR_ADDR }} \
           --username $SP_APPID \
-          --password $SP_PASSWORD
+          --password-stdin $SP_PASSWORD
       shell: bash
 
     - name: Save and Publist Chart to ACR
