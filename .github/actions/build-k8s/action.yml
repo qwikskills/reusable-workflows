@@ -85,11 +85,13 @@ runs:
       shell: bash
 
     - name: Login to ACR with Helm
+      env:
+        AZURE_CREDENTIALS: ${{ inputs.AZURE_CREDENTIALS }}
       working-directory: _k8s/
       run: |
         pwd
-        SP_APPID=$(echo ${{ inputs.AZURE_CREDENTIALS }} | jq -e -r 'select(.clientId != null) | .clientId')
-        SP_PASSWORD=$(echo ${{ inputs.AZURE_CREDENTIALS }} | jq -e -r 'select(.clientSecret != null) | .clientSecret')
+        SP_APPID=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientId != null) | .clientId')
+        SP_PASSWORD=$(echo $AZURE_CREDENTIALS | jq -e -r 'select(.clientSecret != null) | .clientSecret')
         echo $SP_APPID
         echo $SP_PASSWORD
         helm registry login ${{ inputs.ACR_ADDR }} \
@@ -98,7 +100,7 @@ runs:
       shell: bash
 
     # - name: Save and Publist Chart to ACR
-    #   working-directory: /_k8s/
+    #   working-directory: /_k8s/${{ inputs.HELM_PATH }}
     #   run: |
     #     ls -al
     #     helm package . --version ${{ steps.version.outputs.version }} -d /_k8s/${{ inputs.HELM_PATH }}/charts
