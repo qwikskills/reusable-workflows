@@ -46,6 +46,7 @@ runs:
     - name: Get Creds to AKS Cluster 🔑
       run: |
         az aks get-credentials --resource-group ${{ inputs.RG_NAME }} --name ${{ inputs.CLUSTER_NAME }} --admin
+      shell: bash
 
     - name: Login to ACR
       run: |
