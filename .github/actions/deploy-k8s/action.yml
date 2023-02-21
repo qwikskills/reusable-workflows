@@ -21,7 +21,10 @@ inputs:
     description: "ACR Address"
     required: true
   CHART_VERSION:
-    description: "Azure Creds"
+    description: "Chart Version"
+    required: true
+  ENV:
+    description: "Deployment Env"
     required: true
 
 runs:
@@ -62,7 +65,7 @@ runs:
           --debug \
           --install \
           -n ${{ inputs.NAMESPACE }} \
-          -f charts/${{ inputs.HELM_PATH }}/values.yaml \
+          -f charts/${{ inputs.HELM_PATH }}/values-${{ inputs.ENV }}.yaml \
           --atomic \
           --cleanup-on-fail \
           --wait \
