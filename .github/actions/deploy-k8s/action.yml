@@ -54,8 +54,9 @@ runs:
       shell: bash
 
     - name: Deploy via Helm Upgrade
+      working-directory: _k8s/${{ inputs.HELM_PATH }}/
       run: |
-        cd _k8s/${{ inputs.HELM_PATH }}/charts
+        mkdir charts/
         helm pull oci://${{ inputs.ACR_ADDR }}/helm/${{ inputs.HELM_PATH }} --version ${{ inputs.CHART_VERSION }} -d charts/ --untar
 
         helm upgrade ${{ inputs.HELM_PATH }} charts/${{ inputs.HELM_PATH }} \

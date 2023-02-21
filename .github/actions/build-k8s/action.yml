@@ -27,7 +27,10 @@ inputs:
     description: "Helm Path"
     required: true
   ACR_ADDR:
-    description: "Helm Path"
+    description: "ACR Address"
+    required: true
+  CHART_VERSION:
+    description: "Helm Chart Version"
     required: true
 
 runs:
@@ -45,12 +48,6 @@ runs:
         touch .env
         mkdir logs
       shell: bash
-
-    - name: Application Version
-      id: chartversion
-      uses: paulhatch/semantic-version@v5.0.2
-      with:
-        change_path: "."
 
     - name: Azure Login
       uses: azure/login@v1
@@ -101,6 +98,6 @@ runs:
       run: |
         pwd
         ls -al
-        helm package . --version ${{ steps.chartversion.outputs.version }}
-        helm push ${{ inputs.HELM_PATH }}-${{ steps.chartversion.outputs.version }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
+        helm package . --version ${{ inputs.CHART_VERSION }}
+        helm push ${{ inputs.HELM_PATH }}-${{ inputs.CHART_VERSION }}.tgz oci://${{ inputs.ACR_ADDR }}/helm
       shell: bash
