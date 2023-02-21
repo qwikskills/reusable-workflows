@@ -32,6 +32,9 @@ inputs:
   CHART_VERSION:
     description: "Helm Chart Version"
     required: true
+  ENV:
+    description: "Deployment Env"
+    required: true
 
 runs:
   using: composite
@@ -77,8 +80,8 @@ runs:
       run: |
         echo "${{ steps.chartversion.outputs.version }}"
         cd _k8s/${{ inputs.HELM_PATH }}
-        helm lint .
-        helm template . --debug
+        helm lint . -f values-${{ inputs.ENV }}
+        helm template . --debug -f values-${{ inputs.ENV }}
       shell: bash
 
     - name: Login to ACR with Helm
