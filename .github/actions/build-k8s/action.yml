@@ -62,15 +62,15 @@ runs:
     - name: Docker Login
       uses: azure/docker-login@v1
       with:
-        login-server: ${{ inputs.ACR_ADDR }}
+        login-server: ${{ inputs.LOGIN_SERVER }}
         username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
         password: ${{ inputs.DOCKER_LOGIN_PASS }}
 
     - name: Building Docker Image
       run: |
         pwd
-        docker build . -t ${{ inputs.ACR_ADDR }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
-        docker push ${{ inputs.ACR_ADDR }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
       shell: bash
 
     - name: Helm Linting & Dry Run
