@@ -29,5 +29,7 @@ runs:
         |
           yarn run build
           pwd
-          ls -la
+          ls -lart
+          cd out
+          ls -lart
       shell: bash

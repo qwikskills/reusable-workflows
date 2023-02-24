@@ -1,0 +1,54 @@
+name: "Deploy Static Web App"
+description: "Deployment of Frontend Applications"
+
+inputs:
+  stapp-api-key:
+    description: "App Name"
+    required: true
+
+  github-token:
+    description: "Node Version"
+    required: true
+
+  path-to-deploy:
+    description: "Node Version"
+    required: true
+
+  env-to-deploy:
+    description: "Node Version"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Deploy to Prod Validation
+      run: 
+        |
+        export PROD_FLAG="${{ inputs.env-to-deploy }}"
+        echo $PROD_FLAG
+        export NO_FLAG="release"
+        if [ "$PROD_FLAG" != "production" ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::${{ inputs.env-to-deploy }}"; fi
+      id: prodflag
+      shell: bash
+      
+    - name: Deploy
+      if: contains(steps.prodflag.outputs.flag , 'release') == true
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
+        repo-token: ${{ inputs.github-token }}
+        action: "upload"
+        app_location: ${{ inputs.path-to-deploy }}
+        skip_app_build: true
+        deployment_environment: ${{ inputs.env-to-deploy }}         
+        
+    - name: Deploy to Prod
+      if: contains(steps.prodflag.outputs.flag , 'production') == true
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
+        repo-token: ${{ inputs.github-token }}
+        action: "upload"
+        app_location: ${{ inputs.path-to-deploy }}
+        skip_app_build: true
+        production_branch: main
