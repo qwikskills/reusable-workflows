@@ -8,21 +8,6 @@ inputs:
   APP_DIR:
     description: "App Directory"
     required: true
-#   IMAGE_NAME:
-#     description: "Image Name"
-#     required: true
-#   IMAGE_TAG:
-#     description: "Image Tag"
-#     required: true
-#   LOGIN_SERVER:
-#     description: "Docker Login Server"
-#     required: true
-#   DOCKER_LOGIN_USERNAME:
-#     description: "Docker Login Username"
-#     required: true
-#   DOCKER_LOGIN_PASS:
-#     description: "Docker Login Password"
-#     required: true
   NODE_VERSION:
     description: "Node Version"
     required: true
@@ -31,10 +16,7 @@ inputs:
     required: true
   RAZORPAY_KEY_ID:
     description: "Razorpay Key ID"
-    required: true
-#   RAZORPAY_KEY_ID_NON_PROD:
-#     description: "Razorpay Key ID Non Prod"
-#     required: true
+    required: false
   ENTERPRISE_API_URL:
     description: "Enterprise API URL"
     required: true
@@ -46,13 +28,19 @@ inputs:
     required: true
   CUSTOM_VERFICATION_URL:
     description: "Custom Verification URL"
-    required: true
+    required: false
   APP_ENV:
     description: "Application Env"
     required: true
+  TINYMCE_KEY:
+    description: "TinyMCE Key"
+    required: false
+  SAWOLAB_KEY:
+    description: "SAWOLab Key"
+    required: false
   PAT_TOKEN:
     description: "PAT Token"
-    required: true
+    required: false
 
 runs:
   using: composite
@@ -82,6 +70,8 @@ runs:
         echo REACT_APP_CUSTOM_VERFICATION_URL=${{ inputs.CUSTOM_VERFICATION_URL }} >> .env
         echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID }} >> .env
         echo REACT_APP_ENV=${{ inputs.APP_ENV }} >> .env
+        echo REACT_APP_TINY_MCE_KEY=${{ inputs.TINYMCE_KEY }} >> .env
+        echo REACT_APP_SAWO_LAB_KEY=${{ inputs.SAWOLAB_KEY }} >> .env
         cat .env
         cat .npmrc
         CI=false npm run build
