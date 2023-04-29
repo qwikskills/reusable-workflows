@@ -66,6 +66,7 @@ runs:
           --install \
           -n ${{ inputs.NAMESPACE }} \
           -f charts/${{ inputs.HELM_PATH }}/values-${{ inputs.ENV }}.yaml \
+          --recreate-pods \
           --atomic \
           --cleanup-on-fail \
           --wait \
