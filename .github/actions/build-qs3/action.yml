@@ -30,6 +30,4 @@ runs:
           yarn run build
           pwd
           ls -lart
-          cd out
-          ls -lart
       shell: bash
