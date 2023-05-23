@@ -27,7 +27,7 @@ runs:
       working-directory: "${{ inputs.app-directory }}"
       run:
         |
-          yarn run build
+          yarn build && yarn build-storybook
           pwd
           ls -lart
       shell: bash
