@@ -43,7 +43,7 @@ runs:
         deployment_environment: ${{ inputs.env-to-deploy }}         
         
     - name: Deploy to Prod
-      if: contains(steps.prodflag.outputs.flag , 'production') == true
+      if: contains(steps.prodflag.outputs.flag , 'release') == false
       uses: Azure/static-web-apps-deploy@v1
       with:
         azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
