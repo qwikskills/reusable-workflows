@@ -37,7 +37,7 @@ runs:
       with:
         azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
         repo-token: ${{ inputs.github-token }}
-        action: "upload"
+        action: "close"
         app_location: ${{ inputs.path-to-deploy }}
         skip_app_build: true
         deployment_environment: ${{ inputs.env-to-deploy }}         
@@ -48,7 +48,7 @@ runs:
       with:
         azure_static_web_apps_api_token: ${{ inputs.stapp-api-key }}
         repo-token: ${{ inputs.github-token }}
-        action: "upload"
+        action: "close"
         app_location: ${{ inputs.path-to-deploy }}
         skip_app_build: true
         production_branch: main
