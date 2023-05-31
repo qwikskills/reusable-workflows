@@ -35,9 +35,6 @@ inputs:
   COGNITO_REGION:
     description: "Cognito Region"
     required: false
-  COGNITO_IDENTITYPOOLREGION:
-    description: "Cognito Identity Pool Region"
-    required: false
   COGNITO_USERPOOLID:
     description: "Cognito User Pool ID"
     required: false
@@ -97,7 +94,7 @@ runs:
         echo REACT_APP_CUSTOM_VERFICATION_URL=${{ inputs.CUSTOM_VERFICATION_URL }} >> .env
         echo REACT_APP_COGNITO_IDENTITYPOOL_ID=${{ inputs.COGNITO_IDENTITYPOOL_ID }} >> .env
         echo REACT_APP_COGNITO_REGION=${{ inputs.COGNITO_REGION }} >> .env
-        echo REACT_APP_COGNITO_IDENTITYPOOLREGION=${{ inputs.COGNITO_IDENTITYPOOLREGION }} >> .env
+        echo REACT_APP_COGNITO_IDENTITYPOOLREGION=${{ inputs.COGNITO_REGION }} >> .env
         echo REACT_APP_COGNITO_USERPOOLID=${{ inputs.COGNITO_USERPOOLID }} >> .env
         echo REACT_APP_COGNITO_USERPOOLWEBCLIENTID=${{ inputs.COGNITO_USERPOOLWEBCLIENTID }} >> .env
         echo REACT_APP_COGNITO_DOMAIN=${{ inputs.COGNITO_DOMAIN }} >> .env
