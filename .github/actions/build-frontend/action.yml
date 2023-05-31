@@ -29,6 +29,33 @@ inputs:
   CUSTOM_VERFICATION_URL:
     description: "Custom Verification URL"
     required: false
+  COGNITO_IDENTITYPOOL_ID:
+    description: "Cognito Identity Pool ID"
+    required: false
+  COGNITO_REGION:
+    description: "Cognito Region"
+    required: false
+  COGNITO_IDENTITYPOOLREGION:
+    description: "Cognito Identity Pool Region"
+    required: false
+  COGNITO_USERPOOLID:
+    description: "Cognito User Pool ID"
+    required: false
+  COGNITO_USERPOOLWEBCLIENTID:
+    description: "Cognito User Pool Web Client ID"
+    required: false
+  COGNITO_DOMAIN:
+    description: "Cognito Domain"
+    required: false
+  COGNITO_REDIRECTSIGNIN:
+    description: "Cognito Redirecgt SignIn URL"
+    required: false
+  COGNITO_REDIRECTSIGNOUT:
+    description: "Cognito Redirecgt Sign Out URL"
+    required: false
+  COGNITO_RESPONSETYPE:
+    description: "Cognito Response Type"
+    required: false
   APP_ENV:
     description: "Application Env"
     required: true
@@ -68,6 +95,15 @@ runs:
         echo REACT_APP_IMAGE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
         echo REACT_APP_MAIL_URL=${{ inputs.MAIL_URL }} >> .env
         echo REACT_APP_CUSTOM_VERFICATION_URL=${{ inputs.CUSTOM_VERFICATION_URL }} >> .env
+        echo REACT_APP_COGNITO_IDENTITYPOOL_ID=${{ inputs.COGNITO_IDENTITYPOOL_ID }} >> .env
+        echo REACT_APP_COGNITO_REGION=${{ inputs.COGNITO_REGION }} >> .env
+        echo REACT_APP_COGNITO_IDENTITYPOOLREGION=${{ inputs.COGNITO_IDENTITYPOOLREGION }} >> .env
+        echo REACT_APP_COGNITO_USERPOOLID=${{ inputs.COGNITO_USERPOOLID }} >> .env
+        echo REACT_APP_COGNITO_USERPOOLWEBCLIENTID=${{ inputs.COGNITO_USERPOOLWEBCLIENTID }} >> .env
+        echo REACT_APP_COGNITO_DOMAIN=${{ inputs.COGNITO_DOMAIN }} >> .env
+        echo REACT_APP_COGNITO_REDIRECTSIGNIN=${{ inputs.COGNITO_REDIRECTSIGNIN }} >> .env
+        echo REACT_APP_COGNITO_REDIRECTSIGNOUT=${{ inputs.COGNITO_REDIRECTSIGNOUT }} >> .env
+        echo REACT_APP_COGNITO_RESPONSETYPE=${{ inputs.COGNITO_RESPONSETYPE }} >> .env
         echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID }} >> .env
         echo REACT_APP_ENV=${{ inputs.APP_ENV }} >> .env
         echo REACT_APP_TINY_MCE_KEY=${{ inputs.TINYMCE_KEY }} >> .env
