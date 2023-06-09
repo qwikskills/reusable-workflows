@@ -39,8 +39,8 @@ runs:
         username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
         password: ${{ inputs.DOCKER_LOGIN_PASS }}
 
-    - name: Building Docker Image for ${{ inputs.APP_DIR }}
-      working-directory: ${{ inputs.APP_DIR }}
+    - name: Building Docker Image for ${{ inputs.app-directory }}
+      working-directory: ${{ inputs.app-directory }}
       run: |
         pwd
         docker build . -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
