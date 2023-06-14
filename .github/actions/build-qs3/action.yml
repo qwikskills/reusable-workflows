@@ -9,6 +9,10 @@ inputs:
   node-version:
     description: "Node Version"
     required: true
+  
+  API_URL:
+    description: "Backend API URL"
+    required: true
 
 runs:
   using: composite
@@ -27,6 +31,9 @@ runs:
       working-directory: "${{ inputs.app-directory }}"
       run:
         |
+          touch .env
+          ls -al
+          echo REACT_APP_API_URL=${{ inputs.API_URL }} >> .env
           yarn build
           yarn build-storybook
           pwd
