@@ -62,6 +62,9 @@ inputs:
   SAWOLAB_KEY:
     description: "SAWOLab Key"
     required: false
+  QS3_URL:
+    description: "QS3 Url"
+    required: false
   PAT_TOKEN:
     description: "PAT Token"
     required: false
@@ -105,6 +108,7 @@ runs:
         echo REACT_APP_ENV=${{ inputs.APP_ENV }} >> .env
         echo REACT_APP_TINY_MCE_KEY=${{ inputs.TINYMCE_KEY }} >> .env
         echo REACT_APP_SAWO_LAB_KEY=${{ inputs.SAWOLAB_KEY }} >> .env
+        echo REACT_APP_QS3_URL=${{ inputs.QS3_URL }} >> .env
         cat .env
         cat .npmrc
         CI=false npm run build
