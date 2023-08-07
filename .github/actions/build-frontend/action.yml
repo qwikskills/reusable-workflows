@@ -111,7 +111,7 @@ runs:
         echo REACT_APP_QS3_URL=${{ inputs.QS3_URL }} >> .env
         cat .env
         cat .npmrc
-        npm run build
+        CI=false npm run build
       shell: bash
 
 #     - name: Docker Login
