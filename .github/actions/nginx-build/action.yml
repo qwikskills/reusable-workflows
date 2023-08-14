@@ -1,0 +1,71 @@
+name: "NGINX Deployment"
+description: "Deploying NGINX to AKS"
+
+inputs:
+  ENV:
+    description: "Environment"
+    required: true
+  APP_DIR:
+    description: "App Directory"
+    required: true
+  IMAGE_NAME:
+    description: "Image Name"
+    required: true
+  IMAGE_TAG:
+    description: "Image Tag"
+    required: true
+  LOGIN_SERVER:
+    description: "Docker Login Server"
+    required: true
+  DOCKER_LOGIN_USERNAME:
+    description: "Docker Login Username"
+    required: true
+  DOCKER_LOGIN_PASS:
+    description: "Docker Login Password"
+    required: true
+  AZURE_CREDENTIALS:
+    description: "Azure Creds"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ inputs.AZURE_CREDENTIALS }}
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ inputs.LOGIN_SERVER }}
+        username: ${{ inputs.DOCKER_LOGIN_USERNAME }}
+        password: ${{ inputs.DOCKER_LOGIN_PASS }}
+    
+    - name: Deploy to Prod Validation
+      run: 
+        |
+        export PROD_FLAG="${{ inputs.ENV }}"
+        echo $PROD_FLAG
+        export NO_FLAG="release"
+        if [ "$PROD_FLAG" != "production" ]; then echo "::set-output name=flag::$NO_FLAG"; else echo "::set-output name=flag::${{ inputs.ENV }}"; fi
+      id: prodflag
+      shell: bash
+    
+    - name: Building Docker Image for Release
+      if: contains(steps.prodflag.outputs.flag , 'release') == true
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        docker build -f Dockerfile.release -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+      shell: bash
+
+    - name: Building Docker Image for Prod
+      if: contains(steps.prodflag.outputs.flag , 'production') == true
+      working-directory: ${{ inputs.APP_DIR }}
+      run: |
+        pwd
+        docker build -f Dockerfile.prod -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+      shell: bash
