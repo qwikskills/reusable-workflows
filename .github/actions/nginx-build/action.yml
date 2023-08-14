@@ -57,7 +57,7 @@ runs:
       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
-        docker build -f Dockerfile.release -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker build -f Dockerfile.release -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }} .
         docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
       shell: bash
 
@@ -66,6 +66,6 @@ runs:
       working-directory: ${{ inputs.APP_DIR }}
       run: |
         pwd
-        docker build -f Dockerfile.prod -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
+        docker build -f Dockerfile.prod -t ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }} .
         docker push ${{ inputs.LOGIN_SERVER }}/${{ inputs.IMAGE_NAME }}:${{ inputs.IMAGE_TAG }}
       shell: bash
