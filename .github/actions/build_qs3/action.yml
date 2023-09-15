@@ -75,8 +75,6 @@ runs:
       working-directory: "${{ inputs.app-directory }}"
       run:
         |
-          yarn run build
-          pwd
           touch .env
           ls -la
           echo API_URL=${{ inputs.API_URL }} >> .env
@@ -91,6 +89,8 @@ runs:
           echo SENDGRID_SECRET=${{ inputs.SENDGRID_SECRET }} >> .env
           echo STRAPI_BASE_URL=${{ inputs.STRAPI_BASE_URL }} >> .env
           echo STRAPI_IMAGE_URL=${{ inputs.STRAPI_IMAGE_URL }} >> .env
+          yarn run build
+          pwd          
           cat .env
       shell: bash
 
