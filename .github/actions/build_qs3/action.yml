@@ -77,6 +77,18 @@ runs:
         |
           touch .env
           ls -la
+          echo API_URL=${{ inputs.API_URL }} >> .env
+          echo BLOG_URL=${{ inputs.BLOG_URL }} >> .env
+          echo DASHBOARD_URL=${{ inputs.DASHBOARD_URL }} >> .env          
+          echo FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
+          echo LEADSQUARED_ACCESS_KEY=${{ inputs.LEADSQUARED_ACCESS_KEY }} >> .env
+          echo LEADSQUARED_API_URL=${{ inputs.LEADSQUARED_API_URL }} >> .env
+          echo LEADSQUARED_SECRET_KEY=${{ inputs.LEADSQUARED_SECRET_KEY }} >> .env
+          echo QWIK_GPT_KEY=${{ inputs.QWIK_GPT_KEY }} >> .env
+          echo SENDGRID_MAILING_ID=${{ inputs.SENDGRID_MAILING_ID }} >> .env
+          echo SENDGRID_SECRET=${{ inputs.SENDGRID_SECRET }} >> .env
+          echo STRAPI_BASE_URL=${{ inputs.STRAPI_BASE_URL }} >> .env
+          echo STRAPI_IMAGE_URL=${{ inputs.STRAPI_IMAGE_URL }} >> .env
           yarn run build
           pwd          
           cat .env
