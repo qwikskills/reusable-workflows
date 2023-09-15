@@ -9,6 +9,54 @@ inputs:
   node-version:
     description: "Node Version"
     required: true
+  
+  API_URL:
+    description: "Backend API URL"
+    required: true
+  
+  BLOG_URL:
+    description: "Blog URL"
+    required: true
+  
+  DASHBOARD_URL:
+    description: "LabUI URL"
+    required: true
+  
+  IMAGE_FILE_URL:
+    description: "Static Assests URL"
+    required: true
+  
+  LEADSQUARED_ACCESS_KEY:
+    description: "LeadSquared Key"
+    required: true
+  
+  LEADSQUARED_API_URL:
+    description: "LeadSquared API URL"
+    required: true
+  
+  LEADSQUARED_SECRET_KEY:
+    description: "LeadSquared Secret"
+    required: true
+  
+  QWIK_GPT_KEY:
+    description: "QwikGPT Key"
+    required: true
+  
+  SENDGRID_MAILING_ID:
+    description: "Sendgrid Mailing ID"
+    required: true
+  
+  SENDGRID_SECRET:
+    description: "Sendgrid Secret"
+    required: true
+  
+  STRAPI_BASE_URL:
+    description: "Strapi Base URL"
+    required: true
+  
+  STRAPI_IMAGE_URL:
+    description: "Starpi Image URl"
+    required: true
 
 runs:
   using: composite
@@ -29,7 +77,21 @@ runs:
         |
           yarn run build
           pwd
+          touch .env
           ls -la
+          echo API_URL=${{ inputs.API_URL }} >> .env
+          echo BLOG_URL=${{ inputs.BLOG_URL }} >> .env
+          echo DASHBOARD_URL=${{ inputs.DASHBOARD_URL }} >> .env          
+          echo FILE_URL=${{ inputs.IMAGE_FILE_URL }} >> .env
+          echo LEADSQUARED_ACCESS_KEY=${{ inputs.LEADSQUARED_ACCESS_KEY }} >> .env
+          echo LEADSQUARED_API_URL=${{ inputs.LEADSQUARED_API_URL }} >> .env
+          echo LEADSQUARED_SECRET_KEY=${{ inputs.LEADSQUARED_SECRET_KEY }} >> .env
+          echo QWIK_GPT_KEY=${{ inputs.QWIK_GPT_KEY }} >> .env
+          echo SENDGRID_MAILING_ID=${{ inputs.SENDGRID_MAILING_ID }} >> .env
+          echo SENDGRID_SECRET=${{ inputs.SENDGRID_SECRET }} >> .env
+          echo STRAPI_BASE_URL=${{ inputs.STRAPI_BASE_URL }} >> .env
+          echo STRAPI_IMAGE_URL=${{ inputs.STRAPI_IMAGE_URL }} >> .env
+          cat .env
       shell: bash
 
     - name: Docker Login
