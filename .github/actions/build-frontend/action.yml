@@ -17,6 +17,9 @@ inputs:
   RAZORPAY_KEY_ID:
     description: "Razorpay Key ID"
     required: false
+  STRIPE_SECRET_KEY:
+    description: "Stripe Secret Key"
+    required: false
   ENTERPRISE_API_URL:
     description: "Enterprise API URL"
     required: true
@@ -105,6 +108,7 @@ runs:
         echo REACT_APP_COGNITO_REDIRECTSIGNOUT=${{ inputs.COGNITO_REDIRECTSIGNOUT }} >> .env
         echo REACT_APP_COGNITO_RESPONSETYPE=${{ inputs.COGNITO_RESPONSETYPE }} >> .env
         echo REACT_APP_RAZORPAY_KEY_ID=${{ inputs.RAZORPAY_KEY_ID }} >> .env
+        echo REACT_APP_STRIPE_SECRET_KEY=${{ inputs.STRIPE_SECRET_KEY }} >> .env
         echo REACT_APP_ENV=${{ inputs.APP_ENV }} >> .env
         echo REACT_APP_TINY_MCE_KEY=${{ inputs.TINYMCE_KEY }} >> .env
         echo REACT_APP_SAWO_LAB_KEY=${{ inputs.SAWOLAB_KEY }} >> .env
