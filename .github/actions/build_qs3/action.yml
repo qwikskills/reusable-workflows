@@ -58,6 +58,10 @@ inputs:
     description: "Starpi Image URl"
     required: false
 
+  BOTSONICTOKEN:
+    description: "BotSonic Token"
+    required: false
+
 runs:
   using: composite
   steps:
@@ -89,6 +93,7 @@ runs:
           echo SENDGRID_SECRET=${{ inputs.SENDGRID_SECRET }} >> .env
           echo STRAPI_BASE_URL=${{ inputs.STRAPI_BASE_URL }} >> .env
           echo STRAPI_IMAGE_URL=${{ inputs.STRAPI_IMAGE_URL }} >> .env
+          echo BOTSONICTOKEN=${{ inputs.BOTSONICTOKEN }} >> .env
           yarn run build
           pwd          
           cat .env
