@@ -51,4 +51,4 @@ runs:
         action: "upload"
         app_location: ${{ inputs.path-to-deploy }}
         skip_app_build: true
-        production_branch: main
+        production_branch: replica/affcor-admin-swa
