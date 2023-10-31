@@ -62,7 +62,7 @@ inputs:
     description: "BotSonic Token"
     required: false
 
-  PAYMENT_URL:
+  PAYMENTS_URL:
     description: "Payment Portal URL"
     required: false
 
@@ -98,7 +98,7 @@ runs:
           echo STRAPI_BASE_URL=${{ inputs.STRAPI_BASE_URL }} >> .env
           echo STRAPI_IMAGE_URL=${{ inputs.STRAPI_IMAGE_URL }} >> .env
           echo BOTSONICTOKEN=${{ inputs.BOTSONICTOKEN }} >> .env
-          echo PAYMENT_URL=${{ inputs.PAYMENT_URL }} >> .env
+          echo PAYMENTS_URL=${{ inputs.PAYMENTS_URL }} >> .env
           yarn run build
           pwd          
           cat .env
